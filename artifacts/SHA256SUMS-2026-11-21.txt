@@ -1,0 +1,5 @@
+SHA256  4f96112b25f279c6e3e3be1f608edd488b717a6f0fff537cee85478910bd2fb5  LineageOS-23.2-2026.11.18-microG-gsi.img.xz (1089012932)
+MD5     4cc3fcba0ffa031c60909d129683e642                                  LineageOS-23.2-2026.11.18-microG-gsi.img.xz
+SHA256  dcefcb1920cd538a80d4a0120996278f0a8a33aacb7c0ee429c50e61f1818345  LineageOS-23.2-2026.11.18-microG-gsi.img (3071406080, decompressed; not a release asset)
+SHA256  ddcc59675552d31d5069925507312aa9128ce12911fff2980088eb664cd445d0  vegas_ofox_fixed.img (67108864)
+SHA256  4664f5638791c62b948593597cef52ec8ed7b5a8d75623d290ca8e6b0835a0aa  vegas_ofox_base.img (67108864, original XDA base)
