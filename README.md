@@ -19,7 +19,7 @@ have to repeat 20+ build/flash cycles.
 | Root | Magisk 31.1 (`u:r:magisk:s0`) |
 | **Working recovery** | **OrangeFox (14.1-based) with touch, `/data` decryption, backup** |
 | TWRP 14.1 build | builds and verifies, but its userspace hangs on this A16 vendor (see `docs/02-recovery.md`) |
-| GSI | LineageOS 23.2 microG (Android 16) staged; flash plan in `docs/03-gsi.md` |
+| GSI | LineageOS 23.2 microG (Android 16) — **working**, Wi-Fi backup; recovery decrypts its `/data` |
 
 ## The short version
 
