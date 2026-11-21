@@ -1,0 +1,21 @@
+# Local artifacts — never publish these
+private-backups*/
+downloads/
+wsl-build/
+logs/
+out/
+
+# Images / archives
+*.img
+*.xz
+*.win
+*.win0*
+*.cpio
+*.lz4
+*.tar
+*.zip
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini

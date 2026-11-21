@@ -1,0 +1,22 @@
+# SHA-256 / MD5 of images and modules used on XT2617V (vegas26)
+# 2026-11-21. Sizes are bytes. Algorithms are labelled.
+
+# Stock reference (W1WEOS36.48-22-3-3-4-3)
+SHA256  fbab749b8f66a978569c54189bf20fecff1888791361707f33ef7af6d7b1194b   revert/vendor_boot_a.img (stock, 67108864)
+SHA256  50cf268426f0c29c1081decf7e61b39c2f0be3a7d83eb39cfcb84c223934d3c8   device-tree/prebuilt/dtb.img (183530)
+
+# TWRP 14.1 build
+SHA256  8fa66ed1bfca7c001bfa697b3720b3ef5fac7fc1dd2753e3e255a5bfea767146   vendor_boot_14.img (raw, 2 fragments, 67108864)
+SHA256  0e00d15d52f09e0214b75e18c46642e2c791e34169a7f25c4e3724469b067ed7   vendor_boot_14_platform.img (single platform, 67108864)
+SHA256  d8e1e63c9412489a9c513501f5c9d118ba93ff3d739fe1e74b79f10a9f710e32   vendor_boot_14_hybrid.img (stock A16 ramdisk + TWRP 14.1 binary, 67108864)
+
+# Working OrangeFox (14.1-based) + stock FT8725 module
+SHA256  ddcc59675552d31d5069925507312aa9128ce12911fff2980088eb664cd445d0   vegas_ofox_fixed.img (working touch/decrypt/backup, 67108864)
+
+# LineageOS 23.2 microG GSI
+MD5     4cc3fcba0ffa031c60909d129683e642   LineageOS-23.2-2026.11.18-microG-gsi.img.xz (1089012932)
+SHA256  dcefcb1920cd538a80d4a0120996278f0a8a33aacb7c0ee429c50e61f1818345   LineageOS-23.2-2026.11.18-microG-gsi.img (decompressed)
+
+# Touch module comparison
+MD5     c0af43bf421e19a4538cd716ad6bb8e1   stock vendor_dlkm focaltech_0flash_mmi_v3.ko (234560, binds fts_ts)
+MD5     85263c33f1b186dd5db8332b358eebea   OrangeFox image bundled focaltech_0flash_mmi_v3.ko (412600, ENODEV)
