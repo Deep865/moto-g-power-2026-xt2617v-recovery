@@ -46,6 +46,7 @@ And for any GSI: the first `/data` wipe must be a **stock recovery factory reset
 ```
 README.md
 REPRODUCE.md           exact working OrangeFox image recipe
+roms/                  current / next / archive image staging + update sources
 docs/
   00-device.md          device, partitions, stock vendor_boot geometry
   01-backups.md         raw partition backups (super, boot, vbmeta, ...)

@@ -35,6 +35,19 @@ Run with `bash <script>`, not `sh`.
 | `ofox-touch.sh` | mount the real `vendor_dlkm` (`erofs`) and list stock touch modules |
 | `ofox-touch2.sh` | unload the image's modules, load the stock focaltech module, show input devices |
 
+## ROM updates
+
+| Script | Purpose |
+|---|---|
+| `fetch-gsi-update.ps1` | read the LineageOS microG GSI RSS, download the latest `.img.xz` into `roms\next`, verify the published MD5, optionally decompress with WSL |
+
+```powershell
+.\scripts\fetch-gsi-update.ps1 -Decompress
+```
+
+The `roms/` folder is documented in `roms/README.md`; images are gitignored, checksums
+are tracked.
+
 Push and run:
 
 ```powershell
