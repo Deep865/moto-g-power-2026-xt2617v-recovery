@@ -1,6 +1,6 @@
 # Modem SIM/network unlock (`md1img_a`)
 
-Status: **offline check/build completed, not flashed** (2026-11-21).
+Status: **patched `md1img_a` flashed 2026-11-21; SIM/network verification pending**.
 
 This unit:
 
@@ -67,6 +67,27 @@ fastboot reboot
 
 Never flash `md1img_b`, `preloader`, `lk`, `seccfg`, `gpt`, `efuse`, `nvram`, `nvdata`,
 `protect1`, `protect2`, or `persist`.
+
+## Flash performed (2026-11-21)
+
+The patched image was flashed to `md1img_a` only, and the phone booted back into
+LineageOS 23.2 microG:
+
+```text
+fastboot getvar securestate  -> flashing_unlocked
+fastboot flash md1img_a ...  -> OK (74,305 KB)
+```
+
+Post-flash checks:
+
+```text
+gsm.version.baseband = MT6835O_NR17.RC.MP.V18.6.6.P107.02.309R
+gsm.sim.state        = ABSENT,NOT_READY   (no SIM)
+vendor.gsm.sim.slot.lock.device.lock.remain.count = 5
+```
+
+The network lock cannot be verified until a non-Tracfone SIM is inserted. The stock
+trimmed image remains the revert.
 
 ## Verify the unlock (needs a non-Tracfone SIM)
 
