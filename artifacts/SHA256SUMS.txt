@@ -19,4 +19,5 @@ SHA256  dcefcb1920cd538a80d4a0120996278f0a8a33aacb7c0ee429c50e61f1818345   Linea
 
 # Touch module comparison
 MD5     c0af43bf421e19a4538cd716ad6bb8e1   stock vendor_dlkm focaltech_0flash_mmi_v3.ko (234560, binds fts_ts)
+SHA256  587ab792d97ffab45f912024abe66999a6f1ced8cdc03813881d88e219587ae8   stock focaltech_0flash_mmi_v3.ko (234560)
 MD5     85263c33f1b186dd5db8332b358eebea   OrangeFox image bundled focaltech_0flash_mmi_v3.ko (412600, ENODEV)
