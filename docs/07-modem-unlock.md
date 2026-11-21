@@ -126,6 +126,23 @@ released the phone. Network unlock and carrier IMEI activation are separate. An
 AT&T/T-Mobile/GSM MVNO is more likely to activate; a Verizon MVNO may still reject the
 IMEI. This does not affect Wi-Fi backup use.
 
+## eSIM?
+
+The hardware reports:
+
+```text
+ro.vendor.hw.esim = true
+ro.vendor.esimid  = 89043051202509096226009887161491
+```
+
+But the current LineageOS 23.2 microG GSI has **no euicc/LPA package**:
+`pm list packages | grep euicc` is empty and `cmd phone get-eid` is unknown on this
+build. The **T-Mobile eSIM app** is therefore unlikely to work on the GSI, and T-Mobile
+may reject the Tracfone IMEI just like the Verizon MVNO in the XDA report.
+
+Use a **physical prepaid SIM** for the network-lock test. The stock firmware may expose
+the eSIM; the GSI currently does not.
+
 ## Revert
 
 ```powershell
