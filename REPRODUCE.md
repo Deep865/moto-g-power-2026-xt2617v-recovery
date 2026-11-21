@@ -1,5 +1,10 @@
 # Reproduce the working OrangeFox image
 
+> **Version note:** the working image is **OrangeFox R12.0**, not 14.1. The TWRP 14.1
+> source and the OrangeFox 14.1/16.0 source builds are newer controls; see
+> `docs/05-ofox16.md`. The modem/SIM path is in `docs/07-modem-unlock.md`; setup/SIM-screen
+> references are in `docs/06-sim-setup.md`.
+
 This is the exact path that produced a recovery with working touch, `/data` decryption,
 backup/restore, MTP and ADB on `XT2617V` (`vegas26`).
 

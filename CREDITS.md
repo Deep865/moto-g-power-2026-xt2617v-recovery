@@ -9,6 +9,15 @@ below.
 - XDA thread: **[RECOVERY] TWRP/OrangeFox — Moto G Play/Moto G (2026)** by `RomLord14495`
   https://xdaforums.com/t/recovery-twrp-orangefox-moto-g-play-moto-g-2026.4799348/
   (source of the working `vegas_ofox.img` and the panel/touch notes)
+- The working image is **OrangeFox R12.0**, not 14.1. The README’s older
+  “14.1-based” label was wrong; `REPRODUCE.md` and the `R12.0` base are correct.
+  The TWRP 14.1 source and the OrangeFox 14.1/16.0 source builds are newer controls,
+  documented in `STATUS.md` and `docs/05-ofox16.md`.
+- XDA Walmart-special thread by `moto98_` — carrier activation bypass, modem unlock,
+  bootloader unlock, OTA blocker:
+  https://xdaforums.com/t/moto-g-power-2026-xt2617v-walmart-special-root-modem-unlock-bypass-unlocked-bootloader.4809158/
+- `RomLord14495` Moto Roms Drive (network unlock / LineageOS files; slot-b warning):
+  https://drive.google.com/drive/folders/1WAlJfCoh0CA8jhdGqINo_kgn7r-Dt678
 - `crabcakes97` — Nevada TWRP trees / stock recovery base:
   https://github.com/crabcakes97/moto_G_Play_2026_TWRP
   https://github.com/crabcakes97/stock_tree_recovery_nevada_base

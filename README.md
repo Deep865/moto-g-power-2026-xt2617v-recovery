@@ -17,15 +17,40 @@ have to repeat 20+ build/flash cycles.
 | Stock firmware | `W1WEOS36.48-22-3-3-4-3`, Android 16, patch 2026-06-01 |
 | Bootloader | unlocked (`flashing_unlocked`) |
 | Root | Magisk 31.1 (`u:r:magisk:s0`) |
-| **Working recovery** | **OrangeFox (14.1-based) with touch, `/data` decryption, backup** |
+| **Working recovery** | **OrangeFox R12.0 + stock FT8725; touch, `/data` decryption, backup** |
 | TWRP 14.1 build | builds and verifies, but its userspace hangs on this A16 vendor (see `docs/02-recovery.md`) |
+| OrangeFox 16.0 source | builds; 16.0 platform fails at the bootloader; recovery splash/no menu — see `docs/05-ofox16.md` |
+| OrangeFox 14.1 source | sync/build control in progress; R12.0 is the working base |
 | GSI | LineageOS 23.2 microG (Android 16) — **working**, Wi-Fi backup; recovery decrypts its `/data` |
+| SIM / modem | no SIM (`ABSENT,NOT_READY`); modem unlock image built offline, not flashed — see `docs/07-modem-unlock.md` |
+
+## Start here (original setup)
+
+The initial setup and SIM-screen/activation path are not reproduced here; use the original
+public guides:
+
+- **`qfertig/vegas26-gsi`** — complete unlock, GSI, SIM/modem, APN and VoLTE guide:
+  <https://github.com/qfertig/vegas26-gsi>
+- **`parsimo2010/moto-g-power-2026-straight-talk-wifi-root-guide`** — base
+  FRP/OEM-unlock/SIM-screen guide:
+  <https://github.com/parsimo2010/moto-g-power-2026-straight-talk-wifi-root-guide>
+- **XDA Walmart-special thread** (activation bypass, modem reports, extra files):
+  <https://xdaforums.com/t/moto-g-power-2026-xt2617v-walmart-special-root-modem-unlock-bypass-unlocked-bootloader.4809158/>
+- **`andrewwm/vegas-freedom`** — modem `md1img_a` SIM unlock:
+  <https://github.com/andrewwm/vegas-freedom>
+- **XDA recovery thread** — source of the working `vegas_ofox.img`:
+  <https://xdaforums.com/t/recovery-twrp-orangefox-moto-g-play-moto-g-2026.4799348/>
+
+See `docs/06-sim-setup.md` for the SIM-screen/IMEI notes and `docs/07-modem-unlock.md`
+for the tested `md1img_a`-only modem path.
 
 ## The short version
 
-There is **no official A16 TWRP branch**. The newest public TWRP base is `twrp-14.1`.
-What works here is a **complete OrangeFox recovery** built for the same board (same
-`183530`-byte DTB, same `1080x2388` panel) with one critical substitution:
+There is **no official A16 TWRP branch**. The working recovery is an **OrangeFox R12.0**
+image from the XDA thread, built for the same board (same `183530`-byte DTB, same
+`1080x2388` panel) with one critical substitution. The TWRP 14.1 source build and the
+OrangeFox 16.0 source build are newer controls; neither is the working daily recovery
+(see `docs/05-ofox16.md`).
 
 **Use the phone's own `vendor_dlkm` Focaltech FT8725 module instead of the recovery
 image's bundled module.** The bundled one is built for a different G Play variant and
@@ -53,6 +78,9 @@ docs/
   02-recovery.md        TWRP 14.1 build notes + OrangeFox working recipe
   03-gsi.md             LineageOS 23.2 microG GSI plan
   04-troubleshooting.md bootloop/hello moto, touch/display, fastboot, recovery entry
+  05-ofox16.md          OrangeFox 16.0 source results, size limit, hybrids
+  06-sim-setup.md       original setup/SIM-screen references
+  07-modem-unlock.md    vegas-freedom md1img_a modem unlock (not flashed)
 scripts/                the actual build/repack/verify/backup scripts
 artifacts/SHA256SUMS.txt hashes of images built during this work
 CREDITS.md
@@ -72,8 +100,15 @@ Nothing device-unique is published: no serial numbers, unlock keys, IMEI, `nvram
   `protect*`, `md1img` contain device-unique calibration/security data.
 - Back up **before** any `system`/`data` change. A full raw `super.img` is the cleanest
   revert for GSI experiments.
+- **Modem:** flash **`md1img_a` only**, never `md1img_b`, `lk`, `preloader`, `seccfg`,
+  `gpt`, `nvram`, `nvdata`, `protect*` or `persist`. The tested path is
+  `andrewwm/vegas-freedom`; the RomLord Drive’s “flash slot b” warning is a different
+  package/step. See `docs/07-modem-unlock.md`.
+- Without a non-Tracfone SIM the network unlock cannot be verified; the modem patch can be
+  built/audited offline, but `gsm.sim.state` stays `ABSENT` until a SIM is inserted.
 
 ## Credits
 
 See `CREDITS.md`. The working recovery path stands on the XDA `TWRP/OrangeFox` thread,
-`crabcakes97`/`evoxdl` device work, and `qfertig/vegas26-gsi` for the GSI + VoLTE notes.
+`crabcakes97`/`evoxdl` device work, the XDA Walmart-special thread and RomLord Drive,
+and `qfertig/vegas26-gsi` for the GSI + SIM/modem + VoLTE notes.
