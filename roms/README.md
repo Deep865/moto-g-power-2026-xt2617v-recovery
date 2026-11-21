@@ -22,6 +22,20 @@ roms/
 
 Full hashes are in the `SHA256SUMS.txt` next to each folder.
 
+## GitHub Release
+
+The same assets are attached to **`2026-11-21`**:
+
+<https://github.com/Deep865/vegas26-recovery/releases/tag/2026-11-21>
+
+- `LineageOS-23.2-2026.11.18-microG-gsi.img.xz` (1.09 GB; decompress before flashing)
+- `vegas_ofox_fixed.img` (64 MB)
+- `vegas_ofox_base.img` (64 MB, original XDA base)
+- `SHA256SUMS-2026-11-21.txt`
+
+The decompressed GSI `.img` is 2.9 GB and exceeds GitHub's 2 GB/file release-asset
+limit; use the `.xz`.
+
 ## Where updates come from
 
 ### LineageOS 23.2 microG GSI (Android 16)

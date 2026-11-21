@@ -13,6 +13,8 @@ Working state:
 - Touch works (`ft8725` / `fts_ts` / event2).
 - Wi-Fi backup phone, no SIM; the GSI does not unlock the modem.
 
+GitHub Release: <https://github.com/Deep865/vegas26-recovery/releases/tag/2026-11-21>
+
 ## Re-flash
 
 GSI (fastbootd):
