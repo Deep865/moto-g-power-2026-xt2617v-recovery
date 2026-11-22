@@ -24,6 +24,13 @@ have to repeat 20+ build/flash cycles.
 | GSI | LineageOS 23.2 microG (Android 16) — **working**, Wi-Fi backup; recovery decrypts its `/data` |
 | SIM / modem | no SIM (`ABSENT,NOT_READY`); modem unlock image built offline, not flashed — see `docs/07-modem-unlock.md` |
 
+## Download
+
+[Release assets](https://github.com/Deep865/moto-g-power-2026-xt2617v-recovery/releases/tag/2026-11-21)
+— `OrangeFox-R12.0-vegas26.img`, `TWRP-3.7.1-12-vegas26.img`,
+`PBRP-4.x-vegas26.img`, checksums, and the LineageOS 23.2 microG GSI.
+Pick one in `docs/09-recovery-choices.md`.
+
 ## Start here (original setup)
 
 The initial setup and SIM-screen/activation path are not reproduced here; use the original
