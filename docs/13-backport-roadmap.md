@@ -7,15 +7,20 @@ and testable on the 12.1 core.
 The source-tree version of this document, with patch rules, is:
 <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source/blob/main/experimental/BACKPORT-ROADMAP.md>
 
-## Already backported
+## Now in the 12.1 core (`8cd9df2b4`)
 
-| Patch | What it does | Origin |
-|---|---|---|
-| `0001-partition-skip-data-size.patch` | Skip the data-size scan before decryption, avoiding a hang on this encrypted `/data` | OrangeFox 14.1 |
-| `0002-alt-block-device-paths.patch` | Fall back between `/dev/block/bootdevice/by-name` and `/dev/block/by-name` | OrangeFox 14.1 |
+| Fix | What it does |
+|---|---|
+| Skip data-size scan before decrypt | Avoids a hang on this encrypted `/data` |
+| Alternate block-device paths | Falls back between `/dev/block/bootdevice/by-name` and `/dev/block/by-name` |
+| Thermal unsigned-wrap fix | Correct CPU temperature reading |
+| bzip2 | Adds `bzip2` to recovery unless excluded |
+| Vibration defaults | `OF_VIBRATION_DEFAULTS` build variable |
+| Reboot Recovery after actions | Completion pages offer Reboot Recovery |
+| Double-tap-to-wake | Optional `FOX_NO_BLANK_DT2W` |
 
-Both are applied by `scripts/91-build-ofox12-recovery.sh` and were part of the
-17/17-tested OrangeFox image.
+The two former hand-applied patches are in `patches/12.1/` for history; the latest
+core already contains them. The 17/17-tested OrangeFox image is from this core.
 
 ## Candidates
 
@@ -27,11 +32,12 @@ Both are applied by `scripts/91-build-ofox12-recovery.sh` and were part of the
 | USB / sideload / MTP fixes | Recovery USB reliability | Low; must pass sideload |
 | Touch / module load order | Avoid `ENODEV` and haptic races | Low; device tree already fixed |
 | Theme/minui assets | Cosmetic only if it fits the size limit | High size risk |
+| Enable dt2w by default | Set `TW_NO_SCREEN_BLANK` + `FOX_NO_BLANK_DT2W`; needs UI testing | Medium |
 | 14.1/16.0 UI code | Needs the newer userspace; does not fit 12.1 | **Do not attempt** |
 
 ## Acceptance rules
 
-1. Applies to `fox_12.1` at the pinned `bootable/recovery` commit (or a deliberate
+1. Applies to `fox_12.1` at the pinned `bootable/recovery` commit (`8cd9df2b4`, or a deliberate
    re-pin) and compiles for `omni_vegas26-eng`.
 2. Image stays under the bootloader's ~55.5 MB `vendor_boot` content limit.
 3. Full **17/17** self-test with PIN `1234`: UI, FT8725 touch, FBE decrypt,

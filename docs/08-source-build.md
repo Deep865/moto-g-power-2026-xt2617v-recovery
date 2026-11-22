@@ -26,9 +26,11 @@ FOX_TREE=$HOME/fox_12.1 DEVICE_TREE=$DEVICE_TREE OUT_DIR=$OUT_DIR \
   "$DEVICE_TREE/scripts/91-build-ofox12-recovery.sh"
 ```
 
-`91` pins `bootable/recovery` to the tested `3fc9e73f`, applies the two 14.1
-backports in `patches/12.1/`, disables UPX, fixes the gatekeeper symlinks and builds
-`lunch omni_vegas26-eng` + `mka vendorbootimage`.
+`91` pins `bootable/recovery` to the latest tested `fox_12.1` core (`8cd9df2b4`),
+which already contains the two former 14.1 backports plus thermal, bzip2,
+vibration-default, reboot-recovery and optional double-tap-to-wake fixes. It
+disables UPX, fixes the gatekeeper symlinks and builds `lunch omni_vegas26-eng` +
+`mka vendorbootimage`.
 
 ## TWRP 3.7.1-12
 
@@ -82,7 +84,7 @@ The tested 2026-11-22 images:
 
 | Image | SHA-256 |
 |---|---|
-| OrangeFox | `5714ece262c4aeeb399ffc05878d4af070bc161e6333a9e18875b130c4b3f9b7` |
+| OrangeFox | `86c42c5777109fa818ca1786392d6e3b8ae6aaeddc0d237fb843bb14a956223b` |
 | TWRP | `0a241558f40d4cd18b0b2299d0018ac0154362045691b329c8bfb4a6d562c5d7` |
 | PBRP | `c899f61ee38ad14ecccd352fa06fcf9e61737698487eb83001ec4a3d95d977cb` |
 

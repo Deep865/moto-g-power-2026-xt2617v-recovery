@@ -5,7 +5,7 @@ For users who just want everything in one place:
 **`Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip`**
 
 - Size: 256 MB
-- SHA-256: `e818e307f9e07d769c09f09f13dea7ae9d7144fa9176f8f3b04d3d8a752f5012`
+- SHA-256: `f381cedb5f2a3ed0b33e0257c61ae90aa72ba48438736fa806ada64936e9491d`
 - Download: [release assets](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery/releases/tag/2026-11-22)
 
 ## Contents

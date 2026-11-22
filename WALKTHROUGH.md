@@ -349,7 +349,7 @@ of these three tested images:
 
 | Recovery | Why pick it | SHA-256 |
 |---|---|---|
-| **OrangeFox R12.0** | Most features, `fox` CLI, ADB sideload verified | `5714ece2…f9b7` |
+| **OrangeFox R12.0** | Most features, `fox` CLI, ADB sideload verified; newer 12.1 core | `86c42c57…223b` |
 | **TWRP 3.7.1-12** | Plain familiar TWRP, smallest | `0a241558…c5d7` |
 | **PBRP 4.x** | TWRP-based, different UI | `c899f61e…77cb` |
 

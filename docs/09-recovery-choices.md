@@ -6,7 +6,7 @@ backup/restore, MTP/ADB and haptics work on all three**. Pick by UI and preferen
 
 | Recovery | Why pick it | Approx. size |
 |---|---|---:|
-| **OrangeFox R12.0** | Most features; MTK/Trustonic-friendly; theme; `fox` CLI; ADB sideload verified | 55.1 MB |
+| **OrangeFox R12.0** | Most features; MTK/Trustonic-friendly; theme; `fox` CLI; ADB sideload verified; bzip2 and newer 12.1 fixes | 55.2 MB |
 | **TWRP 3.7.1-12** | Plain TWRP; the UI most people already know; smallest | 52.8 MB |
 | **PBRP 4.x** | TWRP-based with a different, more colourful UI | 55.1 MB |
 
@@ -53,7 +53,7 @@ Keep your stock `vendor_boot` image and flash it back to `vendor_boot_a`.
 All three build from one device tree:
 `Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source`
 
-- `scripts/91-build-ofox12-recovery.sh` — OrangeFox 12.1 (+ 14.1 backports)
+- `scripts/91-build-ofox12-recovery.sh` — OrangeFox 12.1 core `8cd9df2b4` (includes the former 14.1 backports and newer fixes)
 - `scripts/92-build-twrp12.sh` — TWRP 12.1
 - `scripts/93-build-pbrp12.sh` — PBRP 12.1
 

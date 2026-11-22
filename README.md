@@ -71,7 +71,7 @@ All three are `vendor_boot_a` images and work equally well. Pick by UI.
 
 | Recovery | Why | Size | SHA-256 |
 |---|---|---:|---|
-| **OrangeFox R12.0** | Most features; `fox` CLI; ADB sideload verified | 55.1 MB | `5714ece2…f9b7` |
+| **OrangeFox R12.0** | Most features; `fox` CLI; ADB sideload verified; newer 12.1 core with thermal/bzip2/vibration/reboot-recovery fixes | 55.2 MB | `86c42c57…223b` |
 | **TWRP 3.7.1-12** | Plain familiar TWRP; smallest | 52.8 MB | `0a241558…c5d7` |
 | **PBRP 4.x** | TWRP-based with a different, colourful UI | 54.9 MB | `c899f61e…77cb` |
 
@@ -91,7 +91,7 @@ Source: <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-s
 
 One device tree, three build scripts, one per recovery:
 
-- `scripts/91-build-ofox12-recovery.sh` — OrangeFox R12.0 (12.1 + two 14.1 backports)
+- `scripts/91-build-ofox12-recovery.sh` — OrangeFox R12.0 (newer 12.1 core with the former 14.1 backports plus thermal/bzip2/vibration/reboot-recovery fixes)
 - `scripts/92-build-twrp12.sh` — TWRP 3.7.1-12
 - `scripts/93-build-pbrp12.sh` — PBRP 4.x
 - `scripts/build-all-three.sh` — build all or a subset

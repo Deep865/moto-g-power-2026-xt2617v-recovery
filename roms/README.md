@@ -17,7 +17,7 @@ roms/
 | Image | Purpose | SHA-256 |
 |---|---|---|
 | `current/LineageOS-23.2-2026.11.18-microG-gsi.img` | Android 16 GSI on `system_a` | `dcefcb1920…` |
-| `current/OrangeFox-R12.0-vegas26.img` | current working recovery on `vendor_boot_a` | `5714ece2…` |
+| `current/OrangeFox-R12.0-vegas26.img` | current working recovery on `vendor_boot_a` | `86c42c57…` |
 | `current/vegas_ofox_fixed.img` | XDA-prebuilt OrangeFox fallback | `ddcc5967…` |
 | `archive/vegas_ofox_base.img` | original XDA OrangeFox base used for the repack | `4664f563…` |
 
