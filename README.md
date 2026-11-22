@@ -98,6 +98,7 @@ docs/
   08-source-build.md    working R12.0 from source (UPX/CRLF/symlink/fstab traps)
   09-recovery-choices.md OrangeFox vs TWRP vs PBRP — pick one, flash the same way
   10-recovery-pack.md   one-file zip: three images + stock vendor_boot + checksums
+  11-recovery-test-results.md  17/17 matrix, sideload, 14.1/16.0 failures
 scripts/                the actual build/repack/verify/backup scripts
 artifacts/SHA256SUMS.txt hashes of images built during this work
 CREDITS.md

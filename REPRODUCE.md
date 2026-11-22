@@ -9,6 +9,11 @@
 > `docs/08-source-build.md` for the one-command recipe and the UPX/CRLF/symlink/fstab
 > traps. The XDA prebuilt below remains the tested fallback.
 
+> **Three recoveries:** OrangeFox R12.0, TWRP 3.7.1-12 and PBRP 4.x all work from the
+> same 12.1 tree. Pick one in `docs/09-recovery-choices.md`, or grab the one-file pack
+> in `docs/10-recovery-pack.md`. Build instructions are in the source repo’s
+> `BUILD-ALL.md`.
+
 This is the exact path that produced a recovery with working touch, `/data` decryption,
 backup/restore, MTP and ADB on `XT2617V` (`vegas26`).
 

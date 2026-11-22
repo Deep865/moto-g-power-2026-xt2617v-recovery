@@ -25,6 +25,8 @@ below.
   https://github.com/evoxdl/android_device_motorola_kansas
 - Hovatek — original base-tree approach.
 - TeamWin Recovery Project and the OrangeFox Recovery Project for the recovery engine.
+- **PitchBlack Recovery Project (PBRP)** — TWRP-based alternative UI tested here:
+  <https://github.com/PitchBlackRecoveryProject/manifest_pb>
 
 ## vegas26 LineageOS / GSI path
 
