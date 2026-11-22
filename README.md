@@ -97,6 +97,7 @@ docs/
   07-modem-unlock.md    vegas-freedom md1img_a modem unlock (not flashed)
   08-source-build.md    working R12.0 from source (UPX/CRLF/symlink/fstab traps)
   09-recovery-choices.md OrangeFox vs TWRP vs PBRP — pick one, flash the same way
+  10-recovery-pack.md   one-file zip: three images + stock vendor_boot + checksums
 scripts/                the actual build/repack/verify/backup scripts
 artifacts/SHA256SUMS.txt hashes of images built during this work
 CREDITS.md

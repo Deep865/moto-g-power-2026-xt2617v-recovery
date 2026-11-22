@@ -58,3 +58,9 @@ All three build from one device tree:
 - `scripts/93-build-pbrp12.sh` — PBRP 12.1
 
 See `docs/08-source-build.md` for the UPX/CRLF/symlink/fstab traps and the backports.
+
+## One-file pack
+
+Prefer a single download? `Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip`
+contains all three images, the stock `vendor_boot_a` revert, a README and checksums.
+See `docs/10-recovery-pack.md`.
