@@ -8,8 +8,8 @@ microG GSI, this documentation and the modem tool. It deliberately contains **no
 device-unique images.
 
 - Download: [release assets](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery/releases/tag/2026-11-22)
-- SHA-256: `56675951a6f7fe1285b279a4ec420d95e2cebcaf9e08e64273480397a1cd80a8`
-- Size: 1,358,190,716 bytes (~1.36 GB); the GSI alone is 1.09 GB compressed.
+- SHA-256: on the release page and in `SHA256SUMS-2026-11-22.txt`.
+- Size: ~1.36 GB; the GSI alone is 1.09 GB compressed.
 
 ## Contents
 
