@@ -8,7 +8,8 @@ Unmodified upstream APKs used on the tested `XT2617V`:
 | `KernelSU_v3.3.1_32680-release.apk` | v3.3.1 | `b4a059ace71de2fa65cc7f12b1c58d55fc23ab25e057ee4230ce779742abe450` |
 | `Magisk-v31.1.apk` | v31.1 | `89cefac0a318afa39fb3880c45c87b036c05bc1ebf02a7a715b7f8d7c26ac6e7` |
 
-Sources and licences: [`../README.md`](../README.md) and [`../licenses/`](../licenses/).
+Sources and licences:
+<https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-unlock-degoogle-guide/tree/main/tools>
 
 ## Tested use
 
