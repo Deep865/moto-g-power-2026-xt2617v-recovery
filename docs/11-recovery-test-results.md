@@ -8,7 +8,7 @@ known test value; `/data` was encrypted.
 
 | Candidate | Image | Size | Result |
 |---|---|---:|---|
-| **OrangeFox R12.0** (12.1 core `8cd9df2b4`) | `86c42c57…` | 55.2 MB | **17/17** + sideload |
+| **OrangeFox R12.0** (12.1 core `8cd9df2b4`) | `9cd70969…` | 55.2 MB | **17/17** + sideload |
 | **TWRP 3.7.1-12** | `0a241558…` | 52.8 MB | **17/17** |
 | **PBRP 4.x** | `c899f61e…` | 54.9 MB | **17/17** |
 | OrangeFox 14.1 fit | `7fb3c54e…` | 55.0 MB | **FAIL — bootloop** |

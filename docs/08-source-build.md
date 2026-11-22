@@ -92,7 +92,7 @@ The tested 2026-11-22 images:
 
 | Image | SHA-256 |
 |---|---|
-| OrangeFox | `86c42c5777109fa818ca1786392d6e3b8ae6aaeddc0d237fb843bb14a956223b` |
+| OrangeFox | `9cd709698b444658d5db5bbbe047429bebfc2ce4209e1b08c377d591ff1a24a0` |
 | TWRP | `0a241558f40d4cd18b0b2299d0018ac0154362045691b329c8bfb4a6d562c5d7` |
 | PBRP | `c899f61ee38ad14ecccd352fa06fcf9e61737698487eb83001ec4a3d95d977cb` |
 
