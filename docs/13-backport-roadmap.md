@@ -19,7 +19,7 @@ The source-tree version of this document, with patch rules, is:
 | Reboot Recovery after actions | Completion pages offer Reboot Recovery |
 | Double-tap-to-wake | Optional `FOX_NO_BLANK_DT2W` |
 
-The two former hand-applied patches are in `patches/12.1/` for history; the latest
+The two former hand-applied patches are in `patches/historical-12.1/` for history; the latest
 core already contains them. The 17/17-tested OrangeFox image is from this core.
 
 ## Candidates
