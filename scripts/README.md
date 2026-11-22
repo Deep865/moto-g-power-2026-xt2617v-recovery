@@ -53,7 +53,7 @@ adb shell su -c 'sh /tmp/backup-dd.sh'
 ## ROM updates
 
 `fetch-gsi-update.ps1` reads the LineageOS microG GSI RSS, downloads the latest
-`.img.xz` into `roms\next`, verifies the published MD5, and can decompress with WSL:
+`.img.xz` into `downloads\gsi`, verifies the published MD5, and can decompress with WSL:
 
 ```powershell
 .\scripts\fetch-gsi-update.ps1 -Decompress

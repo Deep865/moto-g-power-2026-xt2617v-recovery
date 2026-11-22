@@ -1,3 +1,9 @@
+
+> **Not shipped any more:** `vegas_ofox_base.img` (the original XDA base used for the
+> old repack) and `vegas_ofox_fixed.img` (that base with the stock touch module) are
+> historical/fallback artifacts. The source-built OrangeFox/TWRP/PBRP images in the
+> release supersede them. They are not release assets; use the source build or the
+> recovery pack.
 # Reproduce the working OrangeFox image
 
 > **Version note:** the working image is **OrangeFox R12.0**, not 14.1. The TWRP 14.1

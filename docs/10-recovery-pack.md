@@ -6,7 +6,7 @@ For users who just want everything in one place:
 
 - Size: 256 MB
 - SHA-256: `f381cedb5f2a3ed0b33e0257c61ae90aa72ba48438736fa806ada64936e9491d`
-- Download: [release assets](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery/releases/tag/2026-11-22)
+- Download: [release assets](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-unlock-degoogle-guide/releases/tag/2026-11-22)
 
 ## Contents
 

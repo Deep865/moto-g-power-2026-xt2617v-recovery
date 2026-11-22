@@ -1,4 +1,4 @@
-# Fetch the latest LineageOS microG GSI into roms/next and verify it.
+# Fetch the latest LineageOS microG GSI into downloads/gsi and verify it.
 # Usage:
 #   .\scripts\fetch-gsi-update.ps1
 #   .\scripts\fetch-gsi-update.ps1 -Decompress
@@ -10,7 +10,7 @@ $ErrorActionPreference = 'Stop'
 
 $rss     = 'https://sourceforge.net/projects/lineageos-4-microg/rss?path=/GSI/16'
 $referer = 'https://sourceforge.net/projects/lineageos-4-microg/files/GSI/16/'
-$dest    = Join-Path $RepoRoot 'roms\next'
+$dest    = Join-Path $RepoRoot 'downloads\gsi'
 New-Item -ItemType Directory -Force -Path $dest | Out-Null
 
 Write-Host '== Reading SourceForge RSS ==' -ForegroundColor Cyan
@@ -66,4 +66,4 @@ if ($Decompress) {
 Write-Host ''
 Write-Host 'Next steps:' -ForegroundColor Cyan
 Write-Host '  1. Flash in fastbootd:  fastboot flash system ' + ($out -replace '\.xz$', '')
-Write-Host '  2. If it works: move current/ to archive/, move the new image to current/, update current/SHA256SUMS.txt.'
+Write-Host '  2. Flash it in fastbootd as shown above.'

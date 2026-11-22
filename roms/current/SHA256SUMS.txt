@@ -1,3 +1,0 @@
-dcefcb1920cd538a80d4a0120996278f0a8a33aacb7c0ee429c50e61f1818345  roms/current/LineageOS-23.2-2026.11.18-microG-gsi.img
-86c42c5777109fa818ca1786392d6e3b8ae6aaeddc0d237fb843bb14a956223b  roms/current/OrangeFox-R12.0-vegas26.img
-ddcc59675552d31d5069925507312aa9128ce12911fff2980088eb664cd445d0  roms/current/vegas_ofox_fixed.img

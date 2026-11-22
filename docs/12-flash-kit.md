@@ -4,12 +4,12 @@
 
 One download for a Walmart / Straight Talk `XT2617V` (`vegas26`). It contains the
 three tested recoveries, the stock `vendor_boot_a` revert, the tested LineageOS 23.2
-microG GSI, this documentation and the modem tool. It deliberately contains **no**
-device-unique images.
+microG GSI, the temp/persistent root APKs, val-protocol, vegas-freedom, this
+documentation and the tools. It deliberately contains **no** device-unique images.
 
-- Download: [release assets](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery/releases/tag/2026-11-22)
+- Download: [release assets](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-unlock-degoogle-guide/releases/tag/2026-11-22)
 - SHA-256: on the release page and in `SHA256SUMS-2026-11-22.txt`.
-- Size: ~1.36 GB; the GSI alone is 1.09 GB compressed.
+- Size: ~1.38 GB; the GSI alone is 1.09 GB compressed.
 
 ## Contents
 
@@ -25,11 +25,21 @@ recovery/
 gsi/
   LineageOS-23.2-2026.11.18-microG-gsi.img.xz
   SHA256SUMS.txt
+root/
+  README.txt
+  apk/
+    DFRoot_4.7.apk
+    KernelSU_v3.3.1_32680-release.apk
+    Magisk-v31.1.apk
+    SHA256SUMS.txt
+unlock/
+  val-protocol/             # AGPL-3.0 LK patch/key tools
 modem/
   README.txt
   vegas-freedom/            # AGPL-3.0 tool and licence; patches YOUR stock md1img
 docs/
   00-device.md … 13-backport-roadmap.md
+licenses/
 tools/
   recovery-selftest.sh
   extract_frags.py

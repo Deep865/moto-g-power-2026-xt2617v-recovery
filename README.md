@@ -1,9 +1,10 @@
-# Moto G Power 2026 (`XT2617V`, Walmart / Straight Talk) — full guide, GSI and three working recoveries
+# Moto G Power 2026 (`XT2617V`, Walmart / Straight Talk) — unlock, degoogle, GSI and three working recoveries
 
 Everything we used and verified on the **Walmart / Straight Talk Moto G Power 2026**
 (`XT2617V`, Android codename `vegas26`, bootloader product `vegas`, MediaTek MT6835):
-the complete phone walkthrough, the LineageOS 23.2 microG GSI, the working recovery
-images and the revert files.
+the complete phone walkthrough, the temporary/persistent root APKs, the LineageOS
+23.2 microG GSI, the unlock/modem tools, the working recovery images and the revert
+files. Everything needed is in the repo and the release; no hunting other projects.
 
 **Start here:** [`WALKTHROUGH.md`](WALKTHROUGH.md) — SIM-screen bypass → temporary
 root → bootloader unlock → Magisk → GSI → recovery → modem → revert.
@@ -13,22 +14,23 @@ This repo is the **guide + release** half. The **source/build** half is
 
 ## Download
 
-[**Release 2026-11-22**](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery/releases/tag/2026-11-22)
+[**Release 2026-11-22**](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-unlock-degoogle-guide/releases/tag/2026-11-22)
 
 | Asset | What it is |
 |---|---|
-| `Moto-G-Power-2026-XT2617V-flash-kit-2026-11-22.zip` | **One download:** three recoveries, stock `vendor_boot_a`, GSI `.xz`, this walkthrough, docs, modem tool and checksums |
+| `Moto-G-Power-2026-XT2617V-flash-kit-2026-11-22.zip` | **One download:** three recoveries, stock `vendor_boot_a`, GSI `.xz`, DFRoot/KernelSU/Magisk APKs, val-protocol, vegas-freedom, this walkthrough, docs and checksums |
+| `Moto-G-Power-2026-XT2617V-root-apks-2026-11-22.zip` | DFRoot 4.7, KernelSU 3.3.1 + Magisk 31.1 APKs with licences and hashes |
 | `Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip` | Recoveries only: OrangeFox, TWRP, PBRP, stock revert, README, checksums |
 | `OrangeFox-R12.0-vegas26.img` | OrangeFox 12.1 — 17/17 + ADB sideload |
 | `TWRP-3.7.1-12-vegas26.img` | TWRP 12.1 — 17/17 |
 | `PBRP-4.x-vegas26.img` | PBRP 12.1 — 17/17 |
 | `LineageOS-23.2-2026.11.18-microG-gsi.img.xz` | Tested Android 16 microG GSI |
 | `SHA256SUMS-2026-11-22.txt` | Hashes for the release files |
-| `vegas_ofox_base.img`, `vegas_ofox_fixed.img` | XDA base and fixed fallback recovery |
 
 The flash kit contains **no** `md1img`, `nvram`, `nvdata`, `seccfg`, `persist`, `frp`,
 `protect*`, `super.img`, IMEI, serial or unlock keys. The modem tool patches **your**
-stock image.
+stock image. The root APKs are the tested unmodified upstream builds; hashes and
+licences are in [`tools/`](tools/).
 
 ## What works
 
@@ -133,6 +135,7 @@ docs/
   12-flash-kit.md         one-download flash kit contents
   13-backport-roadmap.md  features brought into 12.1 / next candidates
 scripts/                  test/backup helpers used here
+tools/                    APKs, val-protocol, vegas-freedom, licences
 artifacts/                SHA-256 files
 CREDITS.md
 ```

@@ -1,1 +1,0 @@
-SHA256  4664f5638791c62b948593597cef52ec8ed7b5a8d75623d290ca8e6b0835a0aa  vegas_ofox_base.img

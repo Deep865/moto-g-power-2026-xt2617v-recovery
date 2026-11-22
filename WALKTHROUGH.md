@@ -44,7 +44,7 @@ It goes from a locked, unactivated phone to:
   ADB and Fastboot must be on `PATH`, or use full paths.
 - A **non-Tracfone SIM** only if you want to test the modem unlock. None is needed for
   the GSI or recovery.
-- The release files: <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery/releases/tag/2026-11-22>
+- The release files: <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-unlock-degoogle-guide/releases/tag/2026-11-22>
   - `Moto-G-Power-2026-XT2617V-flash-kit-2026-11-22.zip` — one download with the
     recoveries, GSI, docs and modem tool.
   - `Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip` — recoveries only.
@@ -123,8 +123,9 @@ first. Do not scan the QR again after setup.
 You need root to write `frp`, to back up partitions and later to write the patched
 `init_boot`. The first root is **temporary** and disappears on reboot.
 
-Install **DFRoot 4.7** and **KernelSU 3.3.1** (links in
-[`docs/06-sim-setup.md`](docs/06-sim-setup.md)):
+Install **DFRoot 4.7** and **KernelSU 3.3.1**. Both are bundled in this repo under
+[`tools/apk/`](tools/apk/) and in the flash kit; official links are in
+[`tools/README.md`](tools/README.md).
 
 ```powershell
 adb install DFRoot_4.7.apk
@@ -230,7 +231,8 @@ DFRoot/KernelSU again and re-enable Shell root.
 This writes **only `init_boot_a`**. Do not touch `boot_a`, `super`, `lk_b` or the
 other slot.
 
-1. Install **Magisk 31.1** from <https://github.com/topjohnwu/Magisk/releases>.
+1. Install **Magisk 31.1** — bundled at [`tools/apk/Magisk-v31.1.apk`](tools/apk/Magisk-v31.1.apk)
+   (official: <https://github.com/topjohnwu/Magisk/releases>).
 2. In Magisk, choose **Install → Select and Patch a File**, select your stock
    `init_boot_a.img` backup, and let it create `magisk-patched-init_boot.img`.
 3. Pull the patched image and verify its size/hash on the PC.
@@ -454,18 +456,18 @@ Keep the raw backups from step 4. A recovery nandroid is convenient, but the raw
 
 ## 11. Release files
 
-Release: <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery/releases/tag/2026-11-22>
+Release: <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-unlock-degoogle-guide/releases/tag/2026-11-22>
 
 | Asset | What it is |
 |---|---|
-| `Moto-G-Power-2026-XT2617V-flash-kit-2026-11-22.zip` | One download: three recoveries, stock `vendor_boot_a`, GSI `.xz`, this walkthrough, docs, modem tool and checksums |
+| `Moto-G-Power-2026-XT2617V-flash-kit-2026-11-22.zip` | One download: three recoveries, stock `vendor_boot_a`, GSI `.xz`, DFRoot/KernelSU/Magisk APKs, val-protocol, vegas-freedom, this walkthrough, docs and checksums |
+| `Moto-G-Power-2026-XT2617V-root-apks-2026-11-22.zip` | DFRoot 4.7, KernelSU 3.3.1 and Magisk 31.1 APKs with licences and hashes |
 | `Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip` | Recoveries only, with stock revert and checksums |
 | `OrangeFox-R12.0-vegas26.img` | OrangeFox 12.1, 17/17 + sideload |
 | `TWRP-3.7.1-12-vegas26.img` | TWRP 12.1, 17/17 |
 | `PBRP-4.x-vegas26.img` | PBRP 12.1, 17/17 |
 | `LineageOS-23.2-2026.11.18-microG-gsi.img.xz` | Tested Android 16 microG GSI |
 | `SHA256SUMS-2026-11-22.txt` | Hashes of the release files |
-| `vegas_ofox_base.img`, `vegas_ofox_fixed.img` | XDA base and fixed fallback recovery |
 
 The flash kit contains **no** `md1img`, `nvram`, `nvdata`, `seccfg`, `persist`, `frp`,
 `protect*`, `super.img`, IMEI, serial or unlock keys. The modem tool patches **your**
