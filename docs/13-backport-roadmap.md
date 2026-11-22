@@ -38,12 +38,15 @@ core already contains them. The 17/17-tested OrangeFox image is from this core.
 
 ## dt2w test (2026-11-22)
 
-Built with `TW_NO_SCREEN_BLANK := true` + `FOX_NO_BLANK_DT2W := 1`. The screen
-dimmed to 0 after the timeout, but a **single** tap woke it, not a double tap.
-The flags were reverted; the published image is unchanged.
+Built with `TW_NO_SCREEN_BLANK := true` + `FOX_NO_BLANK_DT2W := 1`. The first
+flag-only test let a **single** tap wake the screen.
 
-**Status:** doable in principle, but needs a proper FT8725 MT-B handler and Soong
-flag wiring. Not shipped.
+A follow-up handler for the packed FT8725 event stream blocked single-tap wake, but
+the synthetic double-tap test was inconclusive: each injected tap took ~238 ms, and
+two taps exceeded the 450 ms window. The flags and test handler were reverted; the
+published image is unchanged.
+
+**Status:** doable in principle, but needs a real-finger UI test pass. Not shipped.
 
 ## Acceptance rules
 
