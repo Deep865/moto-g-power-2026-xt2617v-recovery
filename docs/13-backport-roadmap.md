@@ -1,8 +1,9 @@
 # 13 — Backport roadmap: newer OrangeFox features into 12.1
 
 The 12.1 recovery is the only base that boots reliably on this `XT2617V`. We do not
-ship 14.1/16.0 images. We do backport individual fixes when they are useful, small
-and testable on the 12.1 core.
+ship 14.1/16.0 images. After the 2026-11-22 tests we are **not pursuing 14.1/16.0
+further**; their userspace does not reach the UI on this vendor. We only backport
+specific fixes that work on the 12.1 core.
 
 The source-tree version of this document, with patch rules, is:
 <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source/blob/main/experimental/BACKPORT-ROADMAP.md>
@@ -17,7 +18,7 @@ The source-tree version of this document, with patch rules, is:
 | bzip2 | Adds `bzip2` to recovery unless excluded |
 | Vibration defaults | `OF_VIBRATION_DEFAULTS` build variable |
 | Reboot Recovery after actions | Completion pages offer Reboot Recovery |
-| Double-tap-to-wake | Optional `FOX_NO_BLANK_DT2W` |
+| Double-tap-to-wake | Code present (`FOX_NO_BLANK_DT2W`), but **not enabled**; see below |
 
 The two former hand-applied patches are in `patches/historical-12.1/` for history; the latest
 core already contains them. The 17/17-tested OrangeFox image is from this core.
@@ -32,8 +33,17 @@ core already contains them. The 17/17-tested OrangeFox image is from this core.
 | USB / sideload / MTP fixes | Recovery USB reliability | Low; must pass sideload |
 | Touch / module load order | Avoid `ENODEV` and haptic races | Low; device tree already fixed |
 | Theme/minui assets | Cosmetic only if it fits the size limit | High size risk |
-| Enable dt2w by default | Set `TW_NO_SCREEN_BLANK` + `FOX_NO_BLANK_DT2W`; needs UI testing | Medium |
+| Fix dt2w for FT8725 | Upstream handler assumes a packed event; FT8725 is standard MT-B, and `TW_NO_SCREEN_BLANK` is not globally applied in the Soong GUI. Needs a proper MT tracking-id handler. | Medium |
 | 14.1/16.0 UI code | Needs the newer userspace; does not fit 12.1 | **Do not attempt** |
+
+## dt2w test (2026-11-22)
+
+Built with `TW_NO_SCREEN_BLANK := true` + `FOX_NO_BLANK_DT2W := 1`. The screen
+dimmed to 0 after the timeout, but a **single** tap woke it, not a double tap.
+The flags were reverted; the published image is unchanged.
+
+**Status:** doable in principle, but needs a proper FT8725 MT-B handler and Soong
+flag wiring. Not shipped.
 
 ## Acceptance rules
 

@@ -25,3 +25,8 @@ Full procedure: [`../../WALKTHROUGH.md`](../../WALKTHROUGH.md) sections 4 and 6.
 
 These are not a universal root method. They depend on the tested Android 16 build;
 do not run them on a different firmware and expect the same result.
+
+Tested on 2026-11-22 on the running GSI: DFRoot launched and reached KernelSU
+“Working [Jailbreak mode]”; after reboot the temporary session was gone and
+Magisk 31.1 root returned. KernelSU shows “Not installed” while Magisk is the
+active root, which is expected.

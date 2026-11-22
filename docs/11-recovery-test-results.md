@@ -38,6 +38,22 @@ Verified in the running recovery:
 Raw self-test report (serial redacted):
 [`artifacts/2026-11-22-ofox-backports-selftest.txt`](../artifacts/2026-11-22-ofox-backports-selftest.txt).
 
+## Bundled root APKs (2026-11-22)
+
+Installed from `tools/apk/` on the running GSI:
+
+- DFRoot 4.7 (`versionCode 407`) — installed, launched, `LAUNCH ROOT` reached
+  KernelSU **Working [Jailbreak mode]** (`32680-5`).
+- KernelSU v3.3.1 (`versionCode 32680`) — installed and launched; it reports
+  “Not installed” while Magisk is the active root, which is expected.
+- Magisk 31.1 (`versionCode 31100`) — installed; persistent root remains
+  `u:r:magisk:s0` after reboot.
+
+After the DFRoot test the phone was rebooted; the temporary KernelSU jailbreak
+session ended and Magisk root returned. These are the unmodified upstream APKs;
+their SHA-256 values match the official release digests. The DFRoot exploit is
+still stock-firmware-specific, but the APK/UI/root path works on this test unit.
+
 ## What the self-test covers
 
 - `ro.product.device = vegas26`
