@@ -1,132 +1,163 @@
-# Moto G Power 2026 (XT2617V, Walmart / Straight Talk) — recovery, backups, GSI
+# Moto G Power 2026 (`XT2617V`, Walmart / Straight Talk) — full guide, GSI and three working recoveries
 
-Field notes and reproducible scripts for the **MediaTek MT6835** Moto G Power 2026
-(`XT2617V`, Android codename `vegas26`, bootloader product `vegas`).
+Everything we used and verified on the **Walmart / Straight Talk Moto G Power 2026**
+(`XT2617V`, Android codename `vegas26`, bootloader product `vegas`, MediaTek MT6835):
+the complete phone walkthrough, the LineageOS 23.2 microG GSI, the working recovery
+images and the revert files.
 
-The goal of this repo is simple: document what **actually boots** on this specific
-board, what doesn't, and the exact steps/scripts used, so the next person doesn't
-have to repeat 20+ build/flash cycles.
+**Start here:** [`WALKTHROUGH.md`](WALKTHROUGH.md) — SIM-screen bypass → temporary
+root → bootloader unlock → Magisk → GSI → recovery → modem → revert.
 
-> This is a personal research log, not an official Motorola/TWRP/OrangeFox project.
-> Flashing anything is your risk. Keep backups.
+This repo is the **guide + release** half. The **source/build** half is
+[`Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source`](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source).
 
-## Status (2026-11-22)
+## Download
+
+[**Release 2026-11-22**](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery/releases/tag/2026-11-22)
+
+| Asset | What it is |
+|---|---|
+| `Moto-G-Power-2026-XT2617V-flash-kit-2026-11-22.zip` | **One download:** three recoveries, stock `vendor_boot_a`, GSI `.xz`, this walkthrough, docs, modem tool and checksums |
+| `Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip` | Recoveries only: OrangeFox, TWRP, PBRP, stock revert, README, checksums |
+| `OrangeFox-R12.0-vegas26.img` | OrangeFox 12.1 — 17/17 + ADB sideload |
+| `TWRP-3.7.1-12-vegas26.img` | TWRP 12.1 — 17/17 |
+| `PBRP-4.x-vegas26.img` | PBRP 12.1 — 17/17 |
+| `LineageOS-23.2-2026.11.18-microG-gsi.img.xz` | Tested Android 16 microG GSI |
+| `SHA256SUMS-2026-11-22.txt` | Hashes for the release files |
+| `vegas_ofox_base.img`, `vegas_ofox_fixed.img` | XDA base and fixed fallback recovery |
+
+The flash kit contains **no** `md1img`, `nvram`, `nvdata`, `seccfg`, `persist`, `frp`,
+`protect*`, `super.img`, IMEI, serial or unlock keys. The modem tool patches **your**
+stock image.
+
+## What works
 
 | Item | State |
 |---|---|
 | Stock firmware | `W1WEOS36.48-22-3-3-4-3`, Android 16, patch 2026-06-01 |
 | Bootloader | unlocked (`flashing_unlocked`) |
 | Root | Magisk 31.1 (`u:r:magisk:s0`) |
-| **Working recoveries** | **OrangeFox R12.0**, **TWRP 3.7.1-12** and **PBRP 4.x** — all on the 12.1 core; touch, `/data` decrypt, backup, haptics, MTP/ADB |
-| **Pick one** | `docs/09-recovery-choices.md` — OrangeFox (features), TWRP (plain), PBRP (different UI); all three flash the same way |
-| **Source** | `Deep865/moto-g-power-2026-xt2617v-recovery-source` — one device tree, three build scripts |
-| 14.1 / 16.0 source | **not usable here**: both bootloop; the full images also exceed the ~55.5 MB `vendor_boot` limit |
-| GSI | LineageOS 23.2 microG (Android 16) — **working**, Wi-Fi backup; recovery decrypts its `/data` |
-| SIM / modem | no SIM (`ABSENT,NOT_READY`); modem unlock image built offline, not flashed — see `docs/07-modem-unlock.md` |
+| **Working recoveries** | **OrangeFox R12.0**, **TWRP 3.7.1-12**, **PBRP 4.x** — all 12.1-based, 17/17 each |
+| Recovery features | FT8725 touch, FBE `/data` decrypt, backup/restore, MTP/ADB, haptics, six panels; sideload verified on OrangeFox |
+| GSI | LineageOS 23.2 microG, Android 16 — boots and is used as a Wi-Fi backup |
+| Modem / SIM | Patched `md1img_a` was flashed, but **not network-verified** (no SIM); see [`docs/07-modem-unlock.md`](docs/07-modem-unlock.md) |
 
-## Download
+## The path, in order
 
-[Release assets](https://github.com/Deep865/moto-g-power-2026-xt2617v-recovery/releases/tag/2026-11-21)
-— `OrangeFox-R12.0-vegas26.img`, `TWRP-3.7.1-12-vegas26.img`,
-`PBRP-4.x-vegas26.img`, checksums, and the LineageOS 23.2 microG GSI.
-Pick one in `docs/09-recovery-choices.md`.
+The full commands are in [`WALKTHROUGH.md`](WALKTHROUGH.md). The short version:
 
-## Start here (original setup)
+1. **Stop updates** and confirm `XT2617V` / `W1WEOS36.48-22-3-3-4-3` / slot `_a`.
+2. **Bypass the carrier activation screen** with Google's Test DPC enterprise QR
+   (remove the device-owner role afterwards). This is not a SIM unlock.
+3. **Temporary root** with DFRoot + KernelSU, then **back up** `super`, `lk`, `boot`,
+   `init_boot`, `vendor_boot`, `vbmeta`, `dtbo`, `md1img`, `nvram`, `nvdata`, `frp`
+   and the rest. Keep the backups private.
+4. **Unlock the bootloader**: patch your own `lk_a` with val-protocol, set the OEM
+   flag in `frp`, generate keys for **your** serial, `fastboot oem unlock`. This
+   wipes data and disables FRP.
+5. **Persistent root**: patch `init_boot` with Magisk and write it from Android with
+   `dd`; this unit rejects `fastboot flash init_boot_a`.
+6. **Install the GSI**: disable verified boot from the bootloader, flash `system` in
+   fastbootd, then do the first `/data` wipe with **stock recovery factory reset** —
+   never `fastboot -w`.
+7. **Flash a recovery** to `vendor_boot_a`, enter it from the **bootloader menu**, and
+   keep the stock `vendor_boot_a` for revert.
+8. **Optional modem unlock**: patch **your own** stock `md1img`, flash **`md1img_a`
+   only**, test with a non-Tracfone SIM. Our unit is not verified.
 
-The initial setup and SIM-screen/activation path are not reproduced here; use the original
-public guides:
+## Pick a recovery
 
-- **`qfertig/vegas26-gsi`** — complete unlock, GSI, SIM/modem, APN and VoLTE guide:
-  <https://github.com/qfertig/vegas26-gsi>
-- **`parsimo2010/moto-g-power-2026-straight-talk-wifi-root-guide`** — base
-  FRP/OEM-unlock/SIM-screen guide:
-  <https://github.com/parsimo2010/moto-g-power-2026-straight-talk-wifi-root-guide>
-- **XDA Walmart-special thread** (activation bypass, modem reports, extra files):
-  <https://xdaforums.com/t/moto-g-power-2026-xt2617v-walmart-special-root-modem-unlock-bypass-unlocked-bootloader.4809158/>
-- **`andrewwm/vegas-freedom`** — modem `md1img_a` SIM unlock:
-  <https://github.com/andrewwm/vegas-freedom>
-- **XDA recovery thread** — source of the working `vegas_ofox.img`:
-  <https://xdaforums.com/t/recovery-twrp-orangefox-moto-g-play-moto-g-2026.4799348/>
+All three are `vendor_boot_a` images and work equally well. Pick by UI.
 
-See `docs/06-sim-setup.md` for the SIM-screen/IMEI notes and `docs/07-modem-unlock.md`
-for the tested `md1img_a`-only modem path.
+| Recovery | Why | Size | SHA-256 |
+|---|---|---:|---|
+| **OrangeFox R12.0** | Most features; `fox` CLI; ADB sideload verified | 55.1 MB | `5714ece2…f9b7` |
+| **TWRP 3.7.1-12** | Plain familiar TWRP; smallest | 52.8 MB | `0a241558…c5d7` |
+| **PBRP 4.x** | TWRP-based with a different, colourful UI | 54.9 MB | `c899f61e…77cb` |
 
-## The short version
+```powershell
+fastboot flash vendor_boot_a OrangeFox-R12.0-vegas26.img
+```
 
-There is **no official A16 TWRP branch**. Three recoveries now work on this board, all
-built from the **12.1** core: **OrangeFox R12.0**, **TWRP 3.7.1-12**, and **PBRP 4.x**.
-They share the same device tree and fixes — touch (FT8725), Trustonic TEE, FBE
-`/data` decryption, backups, haptics, MTP/ADB. Pick the UI you prefer; see
-`docs/09-recovery-choices.md`.
+Then **Power + Volume Down → Volume Down to Recovery mode → Power**.
+`fastboot reboot recovery` boots Android on this unit.
 
-They are **reproducible from source** — the traps were UPX compression, Windows CRLF in
-`prepdecrypt.sh`, two flattened gatekeeper symlinks and the stock fstab — see
-`docs/08-source-build.md`. The newer OrangeFox **14.1** and **16.0** branches are **not
-usable** on this phone: both bootloop in recovery userspace, and their full images
-exceed the ~55.5 MB `vendor_boot` limit. Recovery compatibility here is with the A16
-vendor/firmware, not the Android version.
+Details and revert: [`docs/09-recovery-choices.md`](docs/09-recovery-choices.md),
+[`docs/10-recovery-pack.md`](docs/10-recovery-pack.md).
 
-**Use the phone's own `vendor_dlkm` Focaltech FT8725 module instead of the recovery
-image's bundled module.** The bundled one is built for a different G Play variant and
-fails with `ENODEV`; the stock module binds `fts_ts` on `/dev/input/event2`.
+## Build any of them
 
-Two other gotchas are documented:
+Source: <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source>
 
-1. Recovery must be entered from the **bootloader menu** (`Volume Down` → `Recovery mode`
-   → `Power`). `fastboot reboot recovery` boots normal Android on this unit.
-2. If OrangeFox boots to the log/console with no nav keys, rename its UI settings file
-   (`/sdcard/Fox/.foxs` → `.foxs.bak`) and reboot recovery; the default main menu returns.
+One device tree, three build scripts, one per recovery:
 
-And for any GSI: the first `/data` wipe must be a **stock recovery factory reset**, not
-`fastboot -w`, or the second boot bootloops on "Can't load Android system".
+- `scripts/91-build-ofox12-recovery.sh` — OrangeFox R12.0 (12.1 + two 14.1 backports)
+- `scripts/92-build-twrp12.sh` — TWRP 3.7.1-12
+- `scripts/93-build-pbrp12.sh` — PBRP 4.x
+- `scripts/build-all-three.sh` — build all or a subset
+
+You do **not** need to build all three. See the source repo
+[`recoveries/`](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source/tree/main/recoveries)
+for a per-recovery sheet and `BUILD-ALL.md` for the full guide.
+
+## Not usable on this phone
+
+**OrangeFox 14.1 and 16.0** build but do not reach a usable recovery UI on this A16
+vendor, and their full images can exceed the ~55.5 MB `vendor_boot` content limit.
+**TWRP 14.1** has the same userspace blocker. They are not published as recovery
+options.
+
+We **do** backport useful fixes from those branches into 12.1. See
+[`docs/13-backport-roadmap.md`](docs/13-backport-roadmap.md) and the source
+`experimental/BACKPORT-ROADMAP.md`.
 
 ## Repo layout
 
 ```
-README.md
-REPRODUCE.md           exact working OrangeFox image recipe
-roms/                  current / next / archive image staging + update sources
+README.md                 this overview
+WALKTHROUGH.md            the complete phone procedure
+RELEASE-2026-11-22.md     release notes
 docs/
-  00-device.md          device, partitions, stock vendor_boot geometry
-  01-backups.md         raw partition backups (super, boot, vbmeta, ...)
-  02-recovery.md        TWRP 14.1 build notes + OrangeFox working recipe
-  03-gsi.md             LineageOS 23.2 microG GSI plan
-  04-troubleshooting.md bootloop/hello moto, touch/display, fastboot, recovery entry
-  05-ofox16.md          OrangeFox 16.0 source results, size limit, hybrids
-  06-sim-setup.md       original setup/SIM-screen references
-  07-modem-unlock.md    vegas-freedom md1img_a modem unlock (not flashed)
-  08-source-build.md    working R12.0 from source (UPX/CRLF/symlink/fstab traps)
-  09-recovery-choices.md OrangeFox vs TWRP vs PBRP — pick one, flash the same way
-  10-recovery-pack.md   one-file zip: three images + stock vendor_boot + checksums
-  11-recovery-test-results.md  17/17 matrix, sideload, 14.1/16.0 failures
-scripts/                the actual build/repack/verify/backup scripts
-artifacts/SHA256SUMS.txt hashes of images built during this work
+  00-device.md            device, partitions, vendor_boot geometry
+  01-backups.md           raw partition backups and restore
+  02-recovery.md          recovery history and the working recipe
+  03-gsi.md               LineageOS 23.2 microG GSI detail
+  04-troubleshooting.md   recovery entry, fastboot, touch, GSI bootloop
+  05-ofox16.md            14.1/16.0 experiments (not supported)
+  06-sim-setup.md         SIM screen, root, unlock references
+  07-modem-unlock.md      md1img_a modem unlock and no-SIM caveat
+  08-source-build.md      source build traps (UPX/CRLF/symlinks/fstab)
+  09-recovery-choices.md  OrangeFox vs TWRP vs PBRP
+  10-recovery-pack.md     recovery pack contents
+  11-recovery-test-results.md  17/17 matrix, sideload, failures
+  12-flash-kit.md         one-download flash kit contents
+  12-backport-roadmap.md  features to bring from 14.1/16.0 into 12.1
+scripts/                  test/backup helpers used here
+artifacts/                SHA-256 files
 CREDITS.md
 ```
 
 Nothing device-unique is published: no serial numbers, unlock keys, IMEI, `nvram`,
-`nvdata`, `seccfg`, `persist`, `frp`, or `md1img` contents.
+`nvdata`, `seccfg`, `persist`, `frp`, `protect*`, `md1img` or `super.img`.
 
 ## Read this before flashing
 
-- **Never relock the bootloader** with a modified LK/init_boot.
-- **Never flash another device's image** (Nevada/Utah/Kansas/TWRP images are different
-  boards). The only image that booted here is the `vegas` OrangeFox + your stock touch
-  module.
-- Use **platform-tools 35.0.0 or 37.0.1**. `37.0.3` can stall on `flash`.
-- Keep `private-backups` private. `nvram`, `nvdata`, `seccfg`, `persist`, `frp`,
-  `protect*`, `md1img` contain device-unique calibration/security data.
-- Back up **before** any `system`/`data` change. A full raw `super.img` is the cleanest
-  revert for GSI experiments.
+- **Never relock the bootloader** with a modified `lk`/`init_boot`.
+- **Never flash another device's image.** Nevada/Utah/Kansas images are different
+  boards.
+- Use **platform-tools 35.0.0 or 37.0.1**; 37.0.3 can stall during `flash`.
+- Keep `private-backups` private.
+- Back up **before** any `system`/`data` change. A raw `super.img` is the cleanest
+  GSI revert.
 - **Modem:** flash **`md1img_a` only**, never `md1img_b`, `lk`, `preloader`, `seccfg`,
-  `gpt`, `nvram`, `nvdata`, `protect*` or `persist`. The tested path is
-  `andrewwm/vegas-freedom`; the RomLord Drive’s “flash slot b” warning is a different
-  package/step. See `docs/07-modem-unlock.md`.
-- Without a non-Tracfone SIM the network unlock cannot be verified; the modem patch can be
-  built/audited offline, but `gsm.sim.state` stays `ABSENT` until a SIM is inserted.
+  `gpt`, `nvram`, `nvdata`, `protect*` or `persist`.
+- The modem/network unlock cannot be verified without a non-Tracfone SIM. It is
+  separate from a carrier's IMEI activation policy.
+- Do not accept firmware updates if you rely on this exact `-4-3` setup.
 
 ## Credits
 
-See `CREDITS.md`. The working recovery path stands on the XDA `TWRP/OrangeFox` thread,
-`crabcakes97`/`evoxdl` device work, the XDA Walmart-special thread and RomLord Drive,
-and `qfertig/vegas26-gsi` for the GSI + SIM/modem + VoLTE notes.
+See [`CREDITS.md`](CREDITS.md). The working recovery path stands on the XDA
+TWRP/OrangeFox thread, `crabcakes97`/`evoxdl` device work, the XDA Walmart-special
+thread, `qfertig/vegas26-gsi` for the GSI + SIM/modem + VoLTE notes, and
+`andrewwm/vegas-freedom` for the LK/modem tools.

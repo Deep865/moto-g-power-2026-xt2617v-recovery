@@ -51,7 +51,7 @@ Keep your stock `vendor_boot` image and flash it back to `vendor_boot_a`.
 ## Source
 
 All three build from one device tree:
-`Deep865/moto-g-power-2026-xt2617v-recovery-source`
+`Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source`
 
 - `scripts/91-build-ofox12-recovery.sh` — OrangeFox 12.1 (+ 14.1 backports)
 - `scripts/92-build-twrp12.sh` — TWRP 12.1

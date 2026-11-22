@@ -5,9 +5,10 @@ This is the practical custom-OS path for `vegas26`. It is a **GSI flashed to `sy
 same `-4-3` build by `qfertig/vegas26-gsi`, including mobile data, SMS and VoLTE.
 
 > Status: **flashed and booted on 2026-11-21.** Android 16,
-> LineageOS 23.2-20261118-UNOFFICIAL-GSI, `/data` encrypted. OrangeFox 14.1 recovery
-> still boots, decrypts the GSI's `/data`, and touch works. This unit is used as a
-> Wi-Fi backup phone (no SIM). The GSI does **not** SIM/network-unlock the modem.
+> LineageOS 23.2-20261118-UNOFFICIAL-GSI, `/data` encrypted. The tested OrangeFox 12.1,
+> TWRP 12.1 and PBRP 12.1 recoveries boot, decrypt the GSI's `/data`, and touch works.
+> This unit is used as a Wi-Fi backup phone (no SIM). The GSI does **not**
+> SIM/network-unlock the modem.
 > Follow the order exactly — the `/data` wipe method is the difference between a working
 > install and a permanent bootloop.
 
@@ -95,8 +96,9 @@ First clean boot: 5–10 minutes.
   Toggle airplane mode once if data is slow to attach.
 - VoLTE: LineageOS 23.2 microG includes `com.mediatek.ims`; verify a real call with
   `adb logcat -b radio -b main` (`useImsForCall=true`, `qci:1`).
-- Optional: reflash the working OrangeFox vendor_boot
-  (`vegas_ofox_fixed.img`); it already booted normal Android with this image once.
+- Optional: reflash the working 12.1 recovery of your choice (OrangeFox, TWRP or
+  PBRP); all three booted normal Android with this image. See
+  `docs/09-recovery-choices.md`.
 
 ## SIM / network unlock (optional)
 

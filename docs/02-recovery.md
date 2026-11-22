@@ -1,11 +1,15 @@
-# 02 — Recovery: TWRP 14.1 build notes + working OrangeFox recipe
+# 02 — Recovery history: TWRP 14.1 notes + the working 12.1 recipes
+
+This page is background. For the supported three recoveries, use
+[`09-recovery-choices.md`](09-recovery-choices.md); for the full install path, use
+[`../WALKTHROUGH.md`](../WALKTHROUGH.md).
 
 Two separate things are documented here:
 
 1. A from-source **TWRP 14.1** build — it compiles, passes every header/DTB check, and
    flashes, but its userspace does not reach a usable UI on this Android 16 vendor.
-2. A **working OrangeFox** recovery built from a device-specific image plus one critical
-   substitution: the phone's own `vendor_dlkm` Focaltech FT8725 module.
+2. The **historical XDA OrangeFox R12.0 prebuilt** and the touch-module substitution
+   that made it usable; the current source-built 12.1 images supersede it.
 
 ## Part A — TWRP 14.1 from source
 
@@ -80,7 +84,7 @@ the TWRP 14.1 userspace, not the image format.
 
 Use the OrangeFox path below for a working recovery.
 
-## Part B — Working OrangeFox (14.1-based)
+## Part B — Historical XDA OrangeFox R12.0 prebuilt (fallback)
 
 > The label is historical: the working image is **R12.0**, built from the 12.1 branch.
 > It is now reproducible from source; see `docs/08-source-build.md`.

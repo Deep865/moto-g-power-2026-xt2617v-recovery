@@ -1,99 +1,104 @@
-# 08 — Building the working R12.0 from source
+# 08 — Building the working recoveries from source
 
-The working OrangeFox R12.0 is reproducible from source. Verified on-device on
-**2026-11-22**: UI, touch, FBE `/data` decryption and backup all work.
+All three supported recoveries are reproducible from one device tree:
 
-## What the working image actually is
+| Recovery | Script | Base |
+|---|---|---|
+| OrangeFox R12.0 | `scripts/91-build-ofox12-recovery.sh` | OrangeFox `fox_12.1` |
+| TWRP 3.7.1-12 | `scripts/92-build-twrp12.sh` | TWRP `twrp-12.1` |
+| PBRP 4.x | `scripts/93-build-pbrp12.sh` | PBRP `android-12.1` |
 
-The XDA prebuilt's own props record the build:
+Source: <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source>
 
-```text
-ro.build.fox_codebase = 2026-08-21 (3fc9e73f)     # bootable/recovery commit
-ro.product.system.device = nevada                  # Moto G Play 2026 tree
-build path = /home/runner/work/OrangeFox-Action-Builder/...
-FOX_BUILD_DATE = Sat Aug 29 21:50:31 2026
-ro.build.fox_id = 78356af1-ad39-4c79-b278-cdbe542a9d1d
-```
+The source repo's [`BUILD-ALL.md`](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source/blob/main/BUILD-ALL.md)
+has the full host setup and commands. You build **one** recovery, not all three.
 
-So it is an **OrangeFox 12.1 branch** build of the **nevada** device tree, made with
-the public **OrangeFox-Action-Builder** workflow. It carries the vegas26 DTB
-(`183530` bytes, SHA-256 `50cf2684…`) and the 1080×2388 panel modules.
-
-Source tree: **`Deep865/vegas26-recovery-source`**
-(device tree + `scripts/90-build-ofox12-source.sh`).
-
-## Build
+## OrangeFox R12.0
 
 ```bash
 git clone https://gitlab.com/OrangeFox/sync.git
 cd sync
-./orangefox_sync.sh --branch 12.1 --path /root/fox_12.1
+./orangefox_sync.sh --branch 12.1 --path "$HOME/fox_12.1"
 
-# copy the device tree to /root/fox_12.1/device/motorola/vegas26
-# (scripts/90-build-ofox12-source.sh does this automatically)
-
-cd /root/fox_12.1
-bash /path/to/vegas26-recovery-source/scripts/90-build-ofox12-source.sh
+export DEVICE_TREE=$HOME/moto-g-power-2026-xt2617v-walmart-recovery-source
+export OUT_DIR=$HOME/recovery-images
+FOX_TREE=$HOME/fox_12.1 DEVICE_TREE=$DEVICE_TREE OUT_DIR=$OUT_DIR \
+  "$DEVICE_TREE/scripts/91-build-ofox12-recovery.sh"
 ```
 
-The script:
+`91` pins `bootable/recovery` to the tested `3fc9e73f`, applies the two 14.1
+backports in `patches/12.1/`, disables UPX, fixes the gatekeeper symlinks and builds
+`lunch omni_vegas26-eng` + `mka vendorbootimage`.
 
-- checks out **`bootable/recovery` at `3fc9e73f`** (the working image's commit);
-- sets `FOX_SKIP_UPX=1` and patches `vendor/recovery/OrangeFox_vendor.sh`;
-- sets `FOX_EXTREME_SIZE_REDUCTION=0` (keeps fonts, FFiles, bash);
-- fixes the gatekeeper symlinks and uses the minimal working fstab;
-- builds `mka vendorbootimage` and copies the result to
-  `wsl-build/vendor_boot_ofox12_source.img`.
+## TWRP 3.7.1-12
 
-## The four traps
+```bash
+mkdir -p "$HOME/twrp_12.1" && cd "$HOME/twrp_12.1"
+repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
+repo sync -c -j8 --force-sync --no-clone-bundle --no-tags
 
-These are the differences between "it builds" and "it boots"; each one was observed
-on this unit.
+TWRP_TREE=$HOME/twrp_12.1 DEVICE_TREE=$DEVICE_TREE OUT_DIR=$OUT_DIR \
+  "$DEVICE_TREE/scripts/92-build-twrp12.sh"
+```
+
+## PBRP 4.x
+
+```bash
+mkdir -p "$HOME/pbrp_12.1" && cd "$HOME/pbrp_12.1"
+repo init --depth=1 -u https://github.com/PitchBlackRecoveryProject/manifest_pb -b android-12.1
+repo sync -c -j8 --force-sync --no-clone-bundle --no-tags
+
+PBRP_TREE=$HOME/pbrp_12.1 DEVICE_TREE=$DEVICE_TREE OUT_DIR=$OUT_DIR \
+  "$DEVICE_TREE/scripts/93-build-pbrp12.sh"
+```
+
+## The fixes that make the difference
+
+Each is a build-to-boot difference on this unit:
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| black screen / bootloop | OrangeFox compresses `/sbin` and `/system/bin` with UPX (`init`, `recovery`, `adbd`, `sh`); the packed binaries never reached userspace | skip UPX (`FOX_SKIP_UPX=1`); the working image's binaries are exactly the decompressed sizes |
-| hangs on the OrangeFox splash | `prepdecrypt.sh` had a Windows **CRLF** shebang (`#!/sbin/sh\r`) → init `execv` status 127 → `crypto.ready` never set → Trustonic KeyMint never starts → `keystore2` aborts with `connect_keymint: NAME_NOT_FOUND` → TWRP waits forever for `keystore2` | keep every device-tree text file LF |
-| decrypt hangs at `using secdis to decrypt spblob` | `vendor/lib64/hw/gatekeeper.trustonic.so` / `gatekeeper.default.so` were **18/20-byte text files** ("libMcGatekeeper.so") instead of symlinks; `dlopen` fails and gatekeeper crash-loops | make them symlinks to `libMcGatekeeper.so` / `libSoftGatekeeper.so` |
-| TWRP partition scan / hang | stock `recovery.fstab` with duplicate erofs/ext4 entries and `first_stage_mount` | use the minimal working `recovery.fstab` (1,871 bytes) |
-| small UI differences | newer `bootable/recovery` | pin `3fc9e73f` |
+| black screen / bootloop | OrangeFox UPX-compresses `/sbin` and `/system/bin`; packed `init`/`recovery` never reach userspace | skip UPX (`FOX_SKIP_UPX=1`) |
+| hangs on the OrangeFox splash | `prepdecrypt.sh` had a Windows **CRLF** shebang → init status 127 → crypto/keymint never starts | keep every device-tree text file LF |
+| decrypt hangs at `using secdis to decrypt spblob` | `gatekeeper.*.so` were 18-byte text files, not symlinks; `dlopen` fails | real symlinks to `libMcGatekeeper.so` / `libSoftGatekeeper.so` |
+| partition scan hang | stock `recovery.fstab` with duplicate erofs/ext4 entries | minimal working `recovery.fstab` |
+| `ram init failed` / no haptics | `aw862x` loaded before `regulator-vibrator` | load `regulator-vibrator.ko` first |
+| sideload fails | `adbd` conflict | stop `adbd` and configure the gadget in `init.recovery.usb.rc` |
+| touch `ENODEV` | recovery bundles a different G Play FT8725 module | use the phone's stock `vendor_dlkm` module |
 
-The CRLF and flattened-symlink traps are **Windows artifacts**: the device tree was
-edited on NTFS, which saved symlinks as text files and text as CRLF. Always build from
-a Linux checkout (or let the script convert/fix the tree).
+The CRLF and flattened-symlink traps are Windows artifacts. Build from a Linux
+checkout; the scripts fix the copied tree but do not fix a bad source archive.
 
-## Verify on the device
+## Verify
 
-```text
-ro.product.device = vegas26
-ro.build.fox_codebase = 2026-08-21 (3fc9e73f2)
-crypto.ready = 1
-init.svc.keystore2 = running
-/sys/class/touchscreen/primary/productinfo = ft8725
+```bash
+python3 scripts/extract_frags.py "$OUT_DIR/OrangeFox-R12.0-vegas26.img" /tmp/frags
 ```
 
-Then in the UI: the decrypt screen accepts the PIN, `/data` mounts, and a backup of
-`/data` completes.
+Expected: `VNDRBOOT`, header 4, page 4096, DTB `183530` bytes, two fragments
+(`platform` + `recovery`), total 67,108,864 bytes, content under ~55.5 MB.
 
-The verified flashed image was `vendor_boot_ofox12_sym.img`:
+The tested 2026-11-22 images:
 
-```text
-SHA-256 88510c28fa1cfd0729356d5cac4add4e2f9e4847a03268d969bc95b37851631f
-fragments  platform 2,689,051 + recovery 52,303,722
-```
+| Image | SHA-256 |
+|---|---|
+| OrangeFox | `5714ece262c4aeeb399ffc05878d4af070bc161e6333a9e18875b130c4b3f9b7` |
+| TWRP | `0a241558f40d4cd18b0b2299d0018ac0154362045691b329c8bfb4a6d562c5d7` |
+| PBRP | `c899f61ee38ad14ecccd352fa06fcf9e61737698487eb83001ec4a3d95d977cb` |
 
-A fresh build may differ only in build IDs. The XDA prebuilt
-(`vegas_ofox_fixed.img`, SHA-256 `ddcc5967…`) remains the tested fallback.
+A fresh build may differ by build ID. Boot and test it before publishing.
 
 ## Flash / revert
 
 ```powershell
-fastboot flash vendor_boot_a vendor_boot_ofox12_source.img
+fastboot flash vendor_boot_a <image>.img
 # bootloader menu: Volume Down -> Recovery mode -> Power
 ```
 
-Revert:
+Revert with the stock `vendor_boot_a.img`.
 
-```powershell
-fastboot flash vendor_boot_a revert\vendor_boot_a.img
-```
+## 14.1 / 16.0
+
+They build but do not reach a usable recovery UI on this Android 16 vendor; full
+images can exceed the size limit. See [`05-ofox16.md`](05-ofox16.md) and the
+[backport roadmap](13-backport-roadmap.md). Do not publish them as recovery options.

@@ -1,37 +1,41 @@
 # ROMs and recovery images
 
-Local staging area for what is flashed on **XT2617V / `vegas26`**. Actual images are
+Local staging area for what is flashed on **XT2617V / `vegas26`**. Images are
 gitignored; only the READMEs and `SHA256SUMS.txt` files are committed.
 
 ## Layout
 
 ```
 roms/
-  current/   exactly what is flashed right now (GSI + working recovery)
+  current/   current GSI + working OrangeFox 12.1 recovery + fallback
   next/      downloaded next update, not flashed/tested yet
-  archive/   previous working images and base images for rollback
+  archive/   previous images and base images for rollback
 ```
 
-## Current (2026-11-21)
+## Current (2026-11-22)
 
 | Image | Purpose | SHA-256 |
 |---|---|---|
-| `current/LineageOS-23.2-2026.11.18-microG-gsi.img` | Android 16 GSI flashed to `system_a` | `dcefcb1920…` |
-| `current/vegas_ofox_fixed.img` | OrangeFox 14.1 recovery on `vendor_boot_a`, stock FT8725 module | `ddcc5967…` |
+| `current/LineageOS-23.2-2026.11.18-microG-gsi.img` | Android 16 GSI on `system_a` | `dcefcb1920…` |
+| `current/OrangeFox-R12.0-vegas26.img` | current working recovery on `vendor_boot_a` | `5714ece2…` |
+| `current/vegas_ofox_fixed.img` | XDA-prebuilt OrangeFox fallback | `ddcc5967…` |
 | `archive/vegas_ofox_base.img` | original XDA OrangeFox base used for the repack | `4664f563…` |
+
+TWRP 3.7.1-12 and PBRP 4.x from the release are equally working alternatives.
 
 Full hashes are in the `SHA256SUMS.txt` next to each folder.
 
 ## GitHub Release
 
-The same assets are attached to **`2026-11-21`**:
+**`2026-11-22`**:
+<https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery/releases/tag/2026-11-22>
 
-<https://github.com/Deep865/vegas26-recovery/releases/tag/2026-11-21>
-
+- `Moto-G-Power-2026-XT2617V-flash-kit-2026-11-22.zip` (recoveries + GSI + docs)
+- `Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip` (recoveries only)
+- `OrangeFox-R12.0-vegas26.img`, `TWRP-3.7.1-12-vegas26.img`, `PBRP-4.x-vegas26.img`
 - `LineageOS-23.2-2026.11.18-microG-gsi.img.xz` (1.09 GB; decompress before flashing)
-- `vegas_ofox_fixed.img` (64 MB)
-- `vegas_ofox_base.img` (64 MB, original XDA base)
-- `SHA256SUMS-2026-11-21.txt`
+- `vegas_ofox_fixed.img` (64 MB fallback), `vegas_ofox_base.img` (original base)
+- `SHA256SUMS-2026-11-22.txt`
 
 The decompressed GSI `.img` is 2.9 GB and exceeds GitHub's 2 GB/file release-asset
 limit; use the `.xz`.
@@ -41,15 +45,14 @@ limit; use the `.xz`.
 ### LineageOS 23.2 microG GSI (Android 16)
 - Folder: <https://sourceforge.net/projects/lineageos-4-microg/files/GSI/16/>
 - RSS: <https://sourceforge.net/projects/lineageos-4-microg/rss?path=/GSI/16>
-- Current: `LineageOS-23.2-2026.11.18-microG-gsi.img.xz`
-- The RSS entry carries the published MD5. Pick the **arm64 A/B, ext4, regular** build
-  (not `vndklite`).
+- Tested: `LineageOS-23.2-2026.11.18-microG-gsi.img.xz`
+- Pick the **arm64 A/B, ext4, regular** build (not `vndklite`).
 
-### OrangeFox base (for the recovery repack)
-- XDA thread: <https://xdaforums.com/t/recovery-twrp-orangefox-moto-g-play-moto-g-2026.4799348/>
-- Base: `vegas_ofox.img` (first post)
-- Then apply `scripts/60-repack-ofox-touch.sh` with your phone's stock FT8725 module.
-  See `REPRODUCE.md`.
+### Recovery source
+- Source repo: <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source>
+- Build one of the three 12.1 recoveries with `scripts/91`, `92`, `93`, or all with
+  `scripts/build-all-three.sh`.
+- Do not expect 14.1/16.0 to boot; see `docs/05-ofox16.md`.
 
 ### Stock firmware (fallback / `md1img`)
 - lolinet mirror: <https://mirrors.lolinet.com/firmware/moto/>
@@ -62,24 +65,16 @@ limit; use the `.xz`.
 
 ## Update workflow
 
-1. Download the new GSI `.img.xz` into `next/` (or run `scripts/fetch-gsi-update.ps1`).
+1. Download a new GSI `.img.xz` into `next/`.
 2. Verify the published MD5; decompress with `xz -d`.
-3. Flash `next/` in fastbootd and test:
-   `fastboot flash system <new.img>`.
-   No `/data` wipe is needed once `/data` was formatted once by stock recovery.
-4. If it boots and works:
-   - move the old `current/` images to `archive/`,
-   - move the new image into `current/`,
-   - update `current/SHA256SUMS.txt`.
+3. Flash `next/` in fastbootd: `fastboot flash system <new.img>`. No `/data` wipe is
+   needed once stock recovery has formatted `/data` once.
+4. If it boots and works, move the old images to `archive/`, move the new into
+   `current/`, and update `current/SHA256SUMS.txt`.
 5. Keep the last known-good GSI and recovery in `archive/`.
 
 ## GitHub size limits
 
-- GitHub rejects files > 100 MB in normal git history; Git LFS allows 2 GB/file.
-- The GSI `.img` is **2.9 GB** — do not commit it.
-- The GSI `.xz` is **1.09 GB** — also too large for normal git, but it fits a GitHub
-  **Release asset** (2 GB/file limit).
-- The 64 MB recovery images could be stored as release assets or release artifacts.
-
-The recommended pattern is: commit the `SHA256SUMS.txt` and update links; keep the
-images in this folder locally, or attach the `.xz`/recovery image to a GitHub Release.
+- Normal git history rejects files > 100 MB; the GSI `.img` is 2.9 GB. Do not commit it.
+- The `.xz` is 1.09 GB and fits a GitHub **Release asset** (2 GB/file limit).
+- The recovery images are 64 MB; attach them to the release, not normal git.

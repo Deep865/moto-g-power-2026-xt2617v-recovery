@@ -77,8 +77,8 @@ gsm.sim.state = ABSENT,NOT_READY
 ```
 
 Without a non-Tracfone SIM you cannot verify the network unlock or the carrier
-registration. You can still build and audit the patched modem offline (see
-`07-modem-unlock.md`), but the final `NETWORK_LOCKED → LOADED` check needs a SIM.
+registration. The patched image was flashed to this unit's `md1img_a`, but the
+`NETWORK_LOCKED → LOADED` check still needs a SIM. See `07-modem-unlock.md`.
 
 ## References
 

@@ -1,2 +1,3 @@
-SHA256  dcefcb1920cd538a80d4a0120996278f0a8a33aacb7c0ee429c50e61f1818345  LineageOS-23.2-2026.11.18-microG-gsi.img
-SHA256  ddcc59675552d31d5069925507312aa9128ce12911fff2980088eb664cd445d0  vegas_ofox_fixed.img
+dcefcb1920cd538a80d4a0120996278f0a8a33aacb7c0ee429c50e61f1818345  roms/current/LineageOS-23.2-2026.11.18-microG-gsi.img
+5714ece262c4aeeb399ffc05878d4af070bc161e6333a9e18875b130c4b3f9b7  roms/current/OrangeFox-R12.0-vegas26.img
+ddcc59675552d31d5069925507312aa9128ce12911fff2980088eb664cd445d0  roms/current/vegas_ofox_fixed.img
