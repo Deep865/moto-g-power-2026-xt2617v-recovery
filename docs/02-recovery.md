@@ -82,6 +82,9 @@ Use the OrangeFox path below for a working recovery.
 
 ## Part B — Working OrangeFox (14.1-based)
 
+> The label is historical: the working image is **R12.0**, built from the 12.1 branch.
+> It is now reproducible from source; see `docs/08-source-build.md`.
+
 ### Source image
 
 From the XDA thread **“TWRP/OrangeFox — Moto G Play/Moto G (2026)”**:

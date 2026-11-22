@@ -1,0 +1,4 @@
+# Source-built OrangeFox R12.0 — verified 2026-11-22
+# Build: vegas26-recovery-source/scripts/90-build-ofox12-source.sh
+# Codebase: bootable/recovery 3fc9e73f (2026-08-21)
+88510c28fa1cfd0729356d5cac4add4e2f9e4847a03268d969bc95b37851631f  vendor_boot_ofox12_sym.img

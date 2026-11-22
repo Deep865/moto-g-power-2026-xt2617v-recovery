@@ -5,6 +5,10 @@
 > `docs/05-ofox16.md`. The modem/SIM path is in `docs/07-modem-unlock.md`; setup/SIM-screen
 > references are in `docs/06-sim-setup.md`.
 
+> **Source build:** the same R12.0 image can now be built from source. See
+> `docs/08-source-build.md` for the one-command recipe and the UPX/CRLF/symlink/fstab
+> traps. The XDA prebuilt below remains the tested fallback.
+
 This is the exact path that produced a recovery with working touch, `/data` decryption,
 backup/restore, MTP and ADB on `XT2617V` (`vegas26`).
 

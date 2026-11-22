@@ -10,7 +10,7 @@ have to repeat 20+ build/flash cycles.
 > This is a personal research log, not an official Motorola/TWRP/OrangeFox project.
 > Flashing anything is your risk. Keep backups.
 
-## Status (2026-11-21)
+## Status (2026-11-22)
 
 | Item | State |
 |---|---|
@@ -18,6 +18,7 @@ have to repeat 20+ build/flash cycles.
 | Bootloader | unlocked (`flashing_unlocked`) |
 | Root | Magisk 31.1 (`u:r:magisk:s0`) |
 | **Working recovery** | **OrangeFox R12.0 + stock FT8725; touch, `/data` decryption, backup** |
+| **Source-built R12.0** | **works** — same codebase, no UPX, LF text, gatekeeper symlinks; UI, touch, `/data` decrypt, backup (`docs/08-source-build.md`) |
 | TWRP 14.1 build | builds and verifies, but its userspace hangs on this A16 vendor (see `docs/02-recovery.md`) |
 | OrangeFox 16.0 source | builds; 16.0 platform fails at the bootloader; recovery splash/no menu — see `docs/05-ofox16.md` |
 | OrangeFox 14.1 source | sync/build control in progress; R12.0 is the working base |
@@ -48,9 +49,11 @@ for the tested `md1img_a`-only modem path.
 
 There is **no official A16 TWRP branch**. The working recovery is an **OrangeFox R12.0**
 image from the XDA thread, built for the same board (same `183530`-byte DTB, same
-`1080x2388` panel) with one critical substitution. The TWRP 14.1 source build and the
-OrangeFox 16.0 source build are newer controls; neither is the working daily recovery
-(see `docs/05-ofox16.md`).
+`1080x2388` panel) with one critical substitution. It is now **reproducible from
+source** — the traps were UPX compression, Windows CRLF in `prepdecrypt.sh`, two
+flattened gatekeeper symlinks and the stock fstab — see `docs/08-source-build.md`. The
+TWRP 14.1 source build and the OrangeFox 16.0 source build are newer controls; neither
+is the working daily recovery (see `docs/05-ofox16.md`).
 
 **Use the phone's own `vendor_dlkm` Focaltech FT8725 module instead of the recovery
 image's bundled module.** The bundled one is built for a different G Play variant and
@@ -81,6 +84,7 @@ docs/
   05-ofox16.md          OrangeFox 16.0 source results, size limit, hybrids
   06-sim-setup.md       original setup/SIM-screen references
   07-modem-unlock.md    vegas-freedom md1img_a modem unlock (not flashed)
+  08-source-build.md    working R12.0 from source (UPX/CRLF/symlink/fstab traps)
 scripts/                the actual build/repack/verify/backup scripts
 artifacts/SHA256SUMS.txt hashes of images built during this work
 CREDITS.md
