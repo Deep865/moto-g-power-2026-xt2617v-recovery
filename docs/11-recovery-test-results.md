@@ -19,6 +19,22 @@ known test value; `/data` was encrypted.
 The three published images were re-tested on 2026-11-22 with the PIN set to 1234:
 **17/17 each** (UI, touch, FBE decrypt, backups, haptics, MTP/ADB, six panels).
 
+## Newer OrangeFox 12.1 core
+
+The OrangeFox image was rebuilt on the newer `fox_12.1` core `8cd9df2b4`:
+skip-data-size-scan and alternate block paths (the former hand backports), thermal
+unsigned-wrap fix, bzip2, configurable vibration defaults, Reboot Recovery after
+actions and optional double-tap-to-wake. It passed **17/17 + ADB sideload** on
+2026-11-22.
+
+Verified in the running recovery:
+
+- `ro.build.fox_codebase = 2026-11-18 (8cd9df2b4)`
+- `/system/bin/bzip2` present (93,104 bytes)
+- haptic defaults `tw_button_vibrate=40`, `tw_action_vibrate=160`
+- `vendor_boot` content 55,162,250 bytes, under the bootloader limit
+- `/sdcard/ofox_test_zip_ok.txt` written after `adb sideload ofox-test.zip`
+
 ## What the self-test covers
 
 - `ro.product.device = vegas26`

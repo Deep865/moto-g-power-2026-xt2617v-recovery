@@ -131,7 +131,7 @@ docs/
   10-recovery-pack.md     recovery pack contents
   11-recovery-test-results.md  17/17 matrix, sideload, failures
   12-flash-kit.md         one-download flash kit contents
-  12-backport-roadmap.md  features to bring from 14.1/16.0 into 12.1
+  13-backport-roadmap.md  features brought into 12.1 / next candidates
 scripts/                  test/backup helpers used here
 artifacts/                SHA-256 files
 CREDITS.md
