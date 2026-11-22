@@ -8,7 +8,7 @@ known test value; `/data` was encrypted.
 
 | Candidate | Image | Size | Result |
 |---|---|---:|---|
-| **OrangeFox R12.0** (12.1 core `8cd9df2b4`) | `9cd70969…` | 55.2 MB | **17/17** + sideload |
+| **OrangeFox R12.0** (12.1 core `8cd9df2b4`) | `873b5614…` | 55.2 MB | **17/17** + sideload |
 | **TWRP 3.7.1-12** | `0a241558…` | 52.8 MB | **17/17** |
 | **PBRP 4.x** | `c899f61e…` | 54.9 MB | **17/17** |
 | OrangeFox 14.1 fit | `7fb3c54e…` | 55.0 MB | **FAIL — bootloop** |
@@ -24,8 +24,12 @@ The three published images were re-tested on 2026-11-22 with the PIN set to 1234
 The OrangeFox image was rebuilt on the newer `fox_12.1` core `8cd9df2b4`:
 skip-data-size-scan and alternate block paths (the former hand backports), thermal
 unsigned-wrap fix, bzip2, configurable vibration defaults, Reboot Recovery after
-actions and optional double-tap-to-wake. It passed **17/17 + ADB sideload** on
-2026-11-22.
+actions and double-tap-to-wake. It passed **17/17 + ADB sideload** on 2026-11-22.
+
+The final image also hides the CPU temperature (recovery kernel returns `EINVAL` for
+the CPU thermal zones) and removes the CPU part of the lock-screen line, leaving
+battery only. Double-tap-to-wake was confirmed on hardware: single tap did not wake,
+double tap woke, and 17/17 still passed.
 
 Verified in the running recovery:
 

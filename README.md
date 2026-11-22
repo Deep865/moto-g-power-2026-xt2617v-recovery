@@ -73,7 +73,7 @@ All three are `vendor_boot_a` images and work equally well. Pick by UI.
 
 | Recovery | Why | Size | SHA-256 |
 |---|---|---:|---|
-| **OrangeFox R12.0** | Most features; `fox` CLI; ADB sideload verified; newer 12.1 core with thermal/bzip2/vibration/reboot-recovery fixes | 55.2 MB | `9cd70969…24a0` |
+| **OrangeFox R12.0** | Most features; `fox` CLI; ADB sideload verified; newer 12.1 core with thermal/bzip2/vibration/reboot-recovery fixes | 55.2 MB | `873b5614…b5fc` |
 | **TWRP 3.7.1-12** | Plain familiar TWRP; smallest | 52.8 MB | `0a241558…c5d7` |
 | **PBRP 4.x** | TWRP-based with a different, colourful UI | 54.9 MB | `c899f61e…77cb` |
 

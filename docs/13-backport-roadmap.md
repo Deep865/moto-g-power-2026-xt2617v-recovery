@@ -18,7 +18,7 @@ The source-tree version of this document, with patch rules, is:
 | bzip2 | Adds `bzip2` to recovery unless excluded |
 | Vibration defaults | `OF_VIBRATION_DEFAULTS` build variable |
 | Reboot Recovery after actions | Completion pages offer Reboot Recovery |
-| Double-tap-to-wake | Code present (`FOX_NO_BLANK_DT2W`), but **not enabled**; see below |
+| Double-tap-to-wake | **Enabled** in the 2026-11-22 image (`873b5614…`); packed FT8725 handler; single tap blocked, double tap confirmed |
 
 The two former hand-applied patches are in `patches/historical-12.1/` for history; the latest
 core already contains them. The 17/17-tested OrangeFox image is from this core.
@@ -33,20 +33,19 @@ core already contains them. The 17/17-tested OrangeFox image is from this core.
 | USB / sideload / MTP fixes | Recovery USB reliability | Low; must pass sideload |
 | Touch / module load order | Avoid `ENODEV` and haptic races | Low; device tree already fixed |
 | Theme/minui assets | Cosmetic only if it fits the size limit | High size risk |
-| Fix dt2w for FT8725 | Upstream handler assumes a packed event; FT8725 is standard MT-B, and `TW_NO_SCREEN_BLANK` is not globally applied in the Soong GUI. Needs a proper MT tracking-id handler. | Medium |
 | 14.1/16.0 UI code | Needs the newer userspace; does not fit 12.1 | **Do not attempt** |
 
 ## dt2w test (2026-11-22)
 
-Built with `TW_NO_SCREEN_BLANK := true` + `FOX_NO_BLANK_DT2W := 1`. The first
-flag-only test let a **single** tap wake the screen.
+Enabled in the final image with a packed FT8725 handler. Verified on hardware:
 
-A follow-up handler for the packed FT8725 event stream blocked single-tap wake, but
-the synthetic double-tap test was inconclusive: each injected tap took ~238 ms, and
-two taps exceeded the 450 ms window. The flags and test handler were reverted; the
-published image is unchanged.
+- single tap does nothing while the screen is dimmed/off
+- double tap wakes the screen
+- swipes and long presses do not wake
+- 17/17 self-test still passes
 
-**Status:** doable in principle, but needs a real-finger UI test pass. Not shipped.
+The lock-screen line now shows battery only; the CPU field is hidden because recovery
+cannot read the CPU thermal zones (`EINVAL`).
 
 ## Acceptance rules
 

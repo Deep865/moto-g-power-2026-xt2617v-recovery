@@ -5,7 +5,7 @@ For users who just want everything in one place:
 **`Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip`**
 
 - Size: 256 MB
-- SHA-256: `c281165290cdf9de14fc742e5cb04288173edcc3a0fc26ba34d5d75d97627402`
+- SHA-256: `0f16d6ed960e10470e18d98c2c7c8b95c0c66afaca055c6e25711b6e18f9a8c9`
 - Download: [release assets](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-unlock-degoogle-guide/releases/tag/2026-11-22)
 
 ## Contents

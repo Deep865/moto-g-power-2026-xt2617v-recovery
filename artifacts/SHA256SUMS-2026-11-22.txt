@@ -1,9 +1,9 @@
 # Three-recovery release — 2026-11-22
 # OrangeFox is the newer fox_12.1 core (8cd9df2b4).
-9cd709698b444658d5db5bbbe047429bebfc2ce4209e1b08c377d591ff1a24a0  OrangeFox-R12.0-vegas26.img
+873b5614bbb5e378c972f7c78962eab658f5e55a6f3002bac6bc968597b6b5fc  OrangeFox-R12.0-vegas26.img
 0a241558f40d4cd18b0b2299d0018ac0154362045691b329c8bfb4a6d562c5d7  TWRP-3.7.1-12-vegas26.img
 c899f61ee38ad14ecccd352fa06fcf9e61737698487eb83001ec4a3d95d977cb  PBRP-4.x-vegas26.img
-c281165290cdf9de14fc742e5cb04288173edcc3a0fc26ba34d5d75d97627402  Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip
+0f16d6ed960e10470e18d98c2c7c8b95c0c66afaca055c6e25711b6e18f9a8c9  Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip
 e03190adf0920ecee5089a8461439b0d24d9ee929d153e6376758689a21b6ef1  Moto-G-Power-2026-XT2617V-root-apks-2026-11-22.zip
-5c102c242d8f483d6de42634cedd60b4641d1ce3f5c7f533b895a53d6a403992  Moto-G-Power-2026-XT2617V-flash-kit-2026-11-22.zip
+64f2a0de1e5573935ccfcc9e7fdec0cad0b7b3a11fbff1eee2009b5bf0737345  Moto-G-Power-2026-XT2617V-flash-kit-2026-11-22.zip
 3ceb13b5fe2bca81aec5278005f89bbe5986324ebd097114f4e9d32405c5017d  artifacts/2026-11-22-ofox-backports-selftest.txt
