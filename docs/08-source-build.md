@@ -10,6 +10,14 @@ All three supported recoveries are reproducible from one device tree:
 
 Source: <https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source>
 
+Where each change is applied (device-tree files, pinned core, or build-time edit):
+<https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source/blob/main/FIXES.md>
+
+The two old `patches/12.1/` files are **not applied** to the current core; they are
+already in the pinned `8cd9df2b4` commit and are kept for history. `scripts/91` runs
+`scripts/verify-core.sh` after checkout and refuses to build if a required fix is
+missing.
+
 The source repo's [`BUILD-ALL.md`](https://github.com/Deep865/moto-g-power-2026-xt2617v-walmart-recovery-source/blob/main/BUILD-ALL.md)
 has the full host setup and commands. You build **one** recovery, not all three.
 
