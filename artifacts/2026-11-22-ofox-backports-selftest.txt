@@ -1,0 +1,37 @@
+INFO|identity|device=vegas26 codebase=2026-11-18 (8cd9df2b4) orangefox=R12.0 pbrp= twrp=
+PASS|product|vegas26
+INFO|crypto|ro.crypto.state=encrypted crypto.ready=1
+PASS|crypto_state|encrypted
+PASS|crypto_ready|1
+PASS|data_mount|/dev/block/dm-7
+PASS|tmp_rw|ok
+PASS|sdcard_rw|ok
+INFO|sdcard_space|/dev/block/dm-7 107G  15G   91G  15% /sdcard
+INFO|svc_keystore2|running
+INFO|svc_vendor.gatekeeper-1-0|stopped
+INFO|svc_vendor.keymint-trustonic|stopped
+INFO|svc_mobicore|stopped
+PASS|gatekeeper_link|libMcGatekeeper.so
+PASS|touch|ft8725
+PASS|input_nodes|4 events
+PASS|panels|6
+PASS|touch_module|loaded
+INFO|display|
+PASS|haptic_node|vibrator
+PASS|haptic_play|play_go
+PASS|haptic_module|loaded
+INFO|mount/vendor|not mounted
+INFO|mount/vendor_dlkm|not mounted
+INFO|mount/system|not mounted
+PASS|mount/metadata|mounted
+PASS|usb_config|mtp,adb
+INFO|usb_state|mtp,adb
+INFO|usb_functions|ffs.adb ffs.fastboot ffs.mtp mass_storage.usb0 
+PASS|backup_dirs| /sdcard/Fox/BACKUPS /data/media/0/Fox/BACKUPS
+INFO|backup_list|/sdcard/Fox/BACKUPS: <serial-redacted> 
+INFO|backup_list|/data/media/0/Fox/BACKUPS: <serial-redacted> 
+INFO|kernel|Linux version 5.15.189-android13-8-00018-g9c82b71884fd-ab14885418 (build-user@build-host) (Android (8508608, based on r450784e) clang version 14.0.7 (https://android.googlesource.com/toolchain/llvm-project 4c603efb0cca074e9238af8b4106c30add4418f6), LLD 14.0.7) #1 SMP PREEMPT Fri Feb 13 15:46:08 UTC 2026
+INFO|slot|_a
+INFO|selinux_denials|177
+INFO|recovery_log_tail|I:Set page: 'ext_custom_status'|I:Set overlay: ''|I:Set page: 'clear_vars'|I:Set page: 'navbar'|I:Set page: 'filemanagerlist'|I:Theme reloaded|
+DONE

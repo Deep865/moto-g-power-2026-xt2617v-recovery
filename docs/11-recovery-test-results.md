@@ -35,6 +35,9 @@ Verified in the running recovery:
 - `vendor_boot` content 55,162,250 bytes, under the bootloader limit
 - `/sdcard/ofox_test_zip_ok.txt` written after `adb sideload ofox-test.zip`
 
+Raw self-test report (serial redacted):
+[`artifacts/2026-11-22-ofox-backports-selftest.txt`](../artifacts/2026-11-22-ofox-backports-selftest.txt).
+
 ## What the self-test covers
 
 - `ro.product.device = vegas26`

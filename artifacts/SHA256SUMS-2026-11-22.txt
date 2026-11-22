@@ -1,6 +1,8 @@
 # Three-recovery release — 2026-11-22
-# OrangeFox image is the 12.1 build with the two 14.1 backports.
-5714ece262c4aeeb399ffc05878d4af070bc161e6333a9e18875b130c4b3f9b7  OrangeFox-R12.0-vegas26.img
+# OrangeFox is the newer fox_12.1 core (8cd9df2b4).
+86c42c5777109fa818ca1786392d6e3b8ae6aaeddc0d237fb843bb14a956223b  OrangeFox-R12.0-vegas26.img
 0a241558f40d4cd18b0b2299d0018ac0154362045691b329c8bfb4a6d562c5d7  TWRP-3.7.1-12-vegas26.img
 c899f61ee38ad14ecccd352fa06fcf9e61737698487eb83001ec4a3d95d977cb  PBRP-4.x-vegas26.img
-e818e307f9e07d769c09f09f13dea7ae9d7144fa9176f8f3b04d3d8a752f5012  Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip
+f381cedb5f2a3ed0b33e0257c61ae90aa72ba48438736fa806ada64936e9491d  Moto-G-Power-2026-XT2617V-recovery-pack-2026-11-22.zip
+6b5c7d48fee11839802d0bea84f08839a49a9ad180294d734eac2d533453b7ba  Moto-G-Power-2026-XT2617V-flash-kit-2026-11-22.zip
+3ceb13b5fe2bca81aec5278005f89bbe5986324ebd097114f4e9d32405c5017d  artifacts/2026-11-22-ofox-backports-selftest.txt
