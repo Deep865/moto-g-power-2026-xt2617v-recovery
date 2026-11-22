@@ -19,7 +19,8 @@ enforced by the MediaTek modem (`md1img`); IMEI/calibration live in `nvram`/`nvd
 ## Tool / references
 
 - **`andrewwm/vegas-freedom`** — the tested modem `md1img` unlock scripts:
-  <https://github.com/andrewwm/vegas-freedom>
+  <https://github.com/andrewwm/vegas-freedom> (also bundled at
+  [`tools/vegas-freedom/`](../tools/vegas-freedom/))
 - **`qfertig/vegas26-gsi` Part 3** — the complete SIM/modem guide:
   <https://github.com/qfertig/vegas26-gsi>
 - **XDA Walmart-special thread**:

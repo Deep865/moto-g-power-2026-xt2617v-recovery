@@ -11,7 +11,7 @@ project does not depend on a link staying alive. Verify hashes before running an
 | `apk/KernelSU_v3.3.1_32680-release.apk` | v3.3.1 (32680) | `b4a059ace71de2fa65cc7f12b1c58d55fc23ab25e057ee4230ce779742abe450` | <https://github.com/tiann/KernelSU/releases/tag/v3.3.1> | GPL-3.0 |
 | `apk/Magisk-v31.1.apk` | v31.1 | `89cefac0a318afa39fb3880c45c87b036c05bc1ebf02a7a715b7f8d7c26ac6e7` | <https://github.com/topjohnwu/Magisk/releases/tag/v31.1> | GPL-3.0 |
 
-The tested sequence is in [`../../WALKTHROUGH.md`](../../WALKTHROUGH.md):
+The tested sequence is in [`../WALKTHROUGH.md`](../WALKTHROUGH.md):
 
 - DFRoot + KernelSU for temporary root and Shell access;
 - Magisk 31.1 for persistent root on `init_boot_a`.

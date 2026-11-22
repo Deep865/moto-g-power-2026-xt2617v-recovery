@@ -128,8 +128,8 @@ Install **DFRoot 4.7** and **KernelSU 3.3.1**. Both are bundled in this repo und
 [`tools/README.md`](tools/README.md).
 
 ```powershell
-adb install DFRoot_4.7.apk
-adb install KernelSU_v3.3.1_32680-release.apk
+adb install tools/apk/DFRoot_4.7.apk
+adb install tools/apk/KernelSU_v3.3.1_32680-release.apk
 adb shell am start -n df.root/.MainActivity
 ```
 
