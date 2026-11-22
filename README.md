@@ -1,4 +1,4 @@
-# Moto G Power 2026 (XT2617V / `vegas26`) — recovery, backups, GSI
+# Moto G Power 2026 (XT2617V, Walmart / Straight Talk) — recovery, backups, GSI
 
 Field notes and reproducible scripts for the **MediaTek MT6835** Moto G Power 2026
 (`XT2617V`, Android codename `vegas26`, bootloader product `vegas`).
@@ -17,11 +17,10 @@ have to repeat 20+ build/flash cycles.
 | Stock firmware | `W1WEOS36.48-22-3-3-4-3`, Android 16, patch 2026-06-01 |
 | Bootloader | unlocked (`flashing_unlocked`) |
 | Root | Magisk 31.1 (`u:r:magisk:s0`) |
-| **Working recovery** | **OrangeFox R12.0 + stock FT8725; touch, `/data` decryption, backup** |
-| **Source-built R12.0** | **works** — same codebase, no UPX, LF text, gatekeeper symlinks; UI, touch, `/data` decrypt, backup (`docs/08-source-build.md`) |
-| TWRP 14.1 build | builds and verifies, but its userspace hangs on this A16 vendor (see `docs/02-recovery.md`) |
-| OrangeFox 16.0 source | builds; 16.0 platform fails at the bootloader; recovery splash/no menu — see `docs/05-ofox16.md` |
-| OrangeFox 14.1 source | sync/build control in progress; R12.0 is the working base |
+| **Working recoveries** | **OrangeFox R12.0**, **TWRP 3.7.1-12** and **PBRP 4.x** — all on the 12.1 core; touch, `/data` decrypt, backup, haptics, MTP/ADB |
+| **Pick one** | `docs/09-recovery-choices.md` — OrangeFox (features), TWRP (plain), PBRP (different UI); all three flash the same way |
+| **Source** | `Deep865/moto-g-power-2026-xt2617v-recovery-source` — one device tree, three build scripts |
+| 14.1 / 16.0 source | **not usable here**: both bootloop; the full images also exceed the ~55.5 MB `vendor_boot` limit |
 | GSI | LineageOS 23.2 microG (Android 16) — **working**, Wi-Fi backup; recovery decrypts its `/data` |
 | SIM / modem | no SIM (`ABSENT,NOT_READY`); modem unlock image built offline, not flashed — see `docs/07-modem-unlock.md` |
 
@@ -47,13 +46,18 @@ for the tested `md1img_a`-only modem path.
 
 ## The short version
 
-There is **no official A16 TWRP branch**. The working recovery is an **OrangeFox R12.0**
-image from the XDA thread, built for the same board (same `183530`-byte DTB, same
-`1080x2388` panel) with one critical substitution. It is now **reproducible from
-source** — the traps were UPX compression, Windows CRLF in `prepdecrypt.sh`, two
-flattened gatekeeper symlinks and the stock fstab — see `docs/08-source-build.md`. The
-TWRP 14.1 source build and the OrangeFox 16.0 source build are newer controls; neither
-is the working daily recovery (see `docs/05-ofox16.md`).
+There is **no official A16 TWRP branch**. Three recoveries now work on this board, all
+built from the **12.1** core: **OrangeFox R12.0**, **TWRP 3.7.1-12**, and **PBRP 4.x**.
+They share the same device tree and fixes — touch (FT8725), Trustonic TEE, FBE
+`/data` decryption, backups, haptics, MTP/ADB. Pick the UI you prefer; see
+`docs/09-recovery-choices.md`.
+
+They are **reproducible from source** — the traps were UPX compression, Windows CRLF in
+`prepdecrypt.sh`, two flattened gatekeeper symlinks and the stock fstab — see
+`docs/08-source-build.md`. The newer OrangeFox **14.1** and **16.0** branches are **not
+usable** on this phone: both bootloop in recovery userspace, and their full images
+exceed the ~55.5 MB `vendor_boot` limit. Recovery compatibility here is with the A16
+vendor/firmware, not the Android version.
 
 **Use the phone's own `vendor_dlkm` Focaltech FT8725 module instead of the recovery
 image's bundled module.** The bundled one is built for a different G Play variant and
@@ -85,6 +89,7 @@ docs/
   06-sim-setup.md       original setup/SIM-screen references
   07-modem-unlock.md    vegas-freedom md1img_a modem unlock (not flashed)
   08-source-build.md    working R12.0 from source (UPX/CRLF/symlink/fstab traps)
+  09-recovery-choices.md OrangeFox vs TWRP vs PBRP — pick one, flash the same way
 scripts/                the actual build/repack/verify/backup scripts
 artifacts/SHA256SUMS.txt hashes of images built during this work
 CREDITS.md

@@ -132,7 +132,7 @@ The hardware reports:
 
 ```text
 ro.vendor.hw.esim = true
-ro.vendor.esimid  = 89043051202509096226009887161491
+ro.vendor.esimid  = <redacted-device-esim>
 ```
 
 But the current LineageOS 23.2 microG GSI has **no euicc/LPA package**:
