@@ -12,9 +12,9 @@ It goes from a locked, unactivated phone to:
 - a clean revert path.
 
 > **Status of the modem step:** the patched `md1img_a` was built and flashed on this
-> unit, but there was **no SIM available**, so the network unlock is **not verified**.
-> Everything else below was booted and tested on the phone. Read the modem section
-> before treating it as a finished unlock.
+> unit, and the network unlock is **verified (2026-11-23)**: a non-Tracfone SIM loads as
+> `LOADED` and LTE data works. Everything below was booted and tested on the phone. See
+> [`docs/07-modem-unlock.md`](docs/07-modem-unlock.md).
 >
 > This is a firmware-specific, experimental procedure. You can lose data or make the
 > phone unable to boot. Use a device you own and keep the backups.

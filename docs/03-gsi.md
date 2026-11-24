@@ -4,11 +4,11 @@ This is the practical custom-OS path for `vegas26`. It is a **GSI flashed to `sy
 (the stock `vendor` stays), not a device-specific ROM. It was verified end-to-end on the
 same `-4-3` build by `qfertig/vegas26-gsi`, including mobile data, SMS and VoLTE.
 
-> Status: **flashed and booted on 2026-11-21.** Android 16,
+> Status: **flashed and booted on 2026-11-21; cellular verified 2026-11-23.** Android 16,
 > LineageOS 23.2-20261118-UNOFFICIAL-GSI, `/data` encrypted. The tested OrangeFox 12.1,
 > TWRP 12.1 and PBRP 12.1 recoveries boot, decrypt the GSI's `/data`, and touch works.
-> This unit is used as a Wi-Fi backup phone (no SIM). The GSI does **not**
-> SIM/network-unlock the modem.
+> A non-Tracfone SIM registers and passes data (AT&T LTE, roaming). The GSI does **not**
+> SIM/network-unlock the modem — that is `docs/07`.
 > Follow the order exactly — the `/data` wipe method is the difference between a working
 > install and a permanent bootloop.
 
@@ -106,6 +106,12 @@ Only needed if `gsm.sim.state = NETWORK_LOCKED`. The `vegas-freedom` tool patche
 `md1img`; flash **`md1img_a` only** and keep the stock image as revert. Do not touch
 `md1img_b`, `preloader`, `lk`, `seccfg`, `gpt`, `nvram`, `nvdata`, `protect*`.
 Legal on a device you own; never publish the modem dump or IMEI.
+
+> **After installing, set Preferred network type to LTE.** This GSI defaults
+> `preferred_network_mode` to `0` (`WCDMA_PREF`), which filters LTE and NR out of the
+> modem and shows "No service" on US networks, where 3G is shut down. Settings → SIMs →
+> *your SIM* → **Preferred network type → LTE**. Details:
+> [`04-troubleshooting.md`](04-troubleshooting.md).
 
 ## Revert to stock
 

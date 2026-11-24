@@ -182,7 +182,7 @@ adb shell pm list packages | grep mediatek.ims
 modem unlock, but a **Verizon MVNO refused the IMEI** because Straight Talk had not
 released the phone. Network unlock and carrier IMEI activation are separate. An
 AT&T/T-Mobile/GSM MVNO is more likely to activate; a Verizon MVNO may still reject the
-IMEI. This does not affect Wi-Fi backup use.
+IMEI. This does not affect Wi-Fi-only use.
 
 ## eSIM?
 

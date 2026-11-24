@@ -65,7 +65,8 @@ The full commands are in [`WALKTHROUGH.md`](WALKTHROUGH.md). The short version:
 7. **Flash a recovery** to `vendor_boot_a`, enter it from the **bootloader menu**, and
    keep the stock `vendor_boot_a` for revert.
 8. **Optional modem unlock**: patch **your own** stock `md1img`, flash **`md1img_a`
-   only**, test with a non-Tracfone SIM. Our unit is not verified.
+   only**, test with a non-Tracfone SIM. **Verified on this unit 2026-11-23** — the SIM
+   loads and LTE data works; see [`docs/07-modem-unlock.md`](docs/07-modem-unlock.md).
 
 ## Pick a recovery
 

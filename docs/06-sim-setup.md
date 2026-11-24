@@ -64,11 +64,11 @@ the phone. The **network lock** and the **carrier’s IMEI activation** are sepa
 - The modem unlock removes the `NETWORK_LOCKED` SIM restriction.
 - The carrier may still reject the IMEI in its activation database, especially Verizon
   MVNOs. An **AT&T/T-Mobile/GSM MVNO** is more likely to activate; the `qfertig` guide
-  tested **US Mobile Dark Star (AT&T)**. This does not affect the Wi-Fi backup use.
+  tested **US Mobile Dark Star (AT&T)**. This does not affect Wi-Fi-only use.
 
 ## No SIM
 
-This unit is used as a Wi-Fi backup and currently reports:
+The unit at rest reports:
 
 ```
 ro.product.model = vegas
@@ -76,9 +76,11 @@ ro.carrier = tracfone
 gsm.sim.state = ABSENT,NOT_READY
 ```
 
-Without a non-Tracfone SIM you cannot verify the network unlock or the carrier
-registration. The patched image was flashed to this unit's `md1img_a`, but the
-`NETWORK_LOCKED → LOADED` check still needs a SIM. See `07-modem-unlock.md`.
+**The unlock was verified on 2026-11-23** with a data-only non-Tracfone SIM (Edge Mobile,
+MCC/MNC `310840`): `gsm.sim.state` became `LOADED`, no unlock prompt appeared, the lock
+counter stayed at 5, and the phone registered on AT&T LTE with working data. A SIM is
+still required to re-check the `NETWORK_LOCKED → LOADED` transition on another unit. See
+`07-modem-unlock.md`.
 
 ## References
 
