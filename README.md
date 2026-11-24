@@ -41,8 +41,8 @@ licences are in [`tools/`](tools/).
 | Root | Magisk 31.1 (`u:r:magisk:s0`) |
 | **Working recoveries** | **OrangeFox R12.0**, **TWRP 3.7.1-12**, **PBRP 4.x** — all 12.1-based, 17/17 each |
 | Recovery features | FT8725 touch, FBE `/data` decrypt, backup/restore, MTP/ADB, haptics, six panels; sideload verified on OrangeFox |
-| GSI | LineageOS 23.2 microG, Android 16 — boots and is used as a Wi-Fi backup |
-| Modem / SIM | Patched `md1img_a` was flashed, but **not network-verified** (no SIM); see [`docs/07-modem-unlock.md`](docs/07-modem-unlock.md) |
+| GSI | LineageOS 23.2 microG, Android 16 — boots and runs; set **Preferred network type → LTE** or it stays on 3G and shows "No service" |
+| Modem / SIM | **Network unlock verified 2026-11-23** — non-Tracfone SIM loads, AT&T LTE data confirmed; see [`docs/07-modem-unlock.md`](docs/07-modem-unlock.md) |
 
 ## The path, in order
 
@@ -124,10 +124,10 @@ docs/
   01-backups.md           raw partition backups and restore
   02-recovery.md          recovery history and the working recipe
   03-gsi.md               LineageOS 23.2 microG GSI detail
-  04-troubleshooting.md   recovery entry, fastboot, touch, GSI bootloop
+  04-troubleshooting.md   recovery entry, fastboot, touch, GSI bootloop, no service (3G)
   05-ofox16.md            14.1/16.0 experiments (not supported)
   06-sim-setup.md         SIM screen, root, unlock references
-  07-modem-unlock.md      md1img_a modem unlock and no-SIM caveat
+  07-modem-unlock.md      md1img_a modem unlock (verified), 3G default, IMEI caveat
   08-source-build.md      source build traps (UPX/CRLF/symlinks/fstab)
   09-recovery-choices.md  OrangeFox vs TWRP vs PBRP
   10-recovery-pack.md     recovery pack contents
@@ -154,8 +154,8 @@ Nothing device-unique is published: no serial numbers, unlock keys, IMEI, `nvram
   GSI revert.
 - **Modem:** flash **`md1img_a` only**, never `md1img_b`, `lk`, `preloader`, `seccfg`,
   `gpt`, `nvram`, `nvdata`, `protect*` or `persist`.
-- The modem/network unlock cannot be verified without a non-Tracfone SIM. It is
-  separate from a carrier's IMEI activation policy.
+- The modem/network unlock is verified on this unit (2026-11-23), but it is separate from
+  a carrier's IMEI activation policy: a Verizon MVNO can still refuse the IMEI.
 - Do not accept firmware updates if you rely on this exact `-4-3` setup.
 
 ## Credits

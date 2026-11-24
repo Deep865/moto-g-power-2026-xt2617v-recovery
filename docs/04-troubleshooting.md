@@ -84,6 +84,35 @@ That is the `fastboot -w` trap. `fastboot -w` erases `/data`/`metadata` without
 formatting them. Use **stock recovery’s factory reset** for the first wipe, then GSIs can
 be hot-swapped without wiping.
 
+## No service after the GSI (radio stuck on 3G)
+
+Symptom: the SIM reads fine (`gsm.sim.operator.alpha` populated), but Mobile network says
+**No service**, `mServiceState` is `OUT_OF_SERVICE`, there is no serving cell and signal
+strength is invalid. It looks like dead RF; it is not.
+
+Cause: the GSI defaults `preferred_network_mode` to `0` (`WCDMA_PREF`), which filters LTE
+and NR out of the modem's capabilities. US 3G is shut down, so the radio finds nothing.
+
+```powershell
+adb shell settings get global preferred_network_mode   # 0 = 3G preferred
+adb shell logcat -b radio -d | Select-String 'setAllowedNetworkTypes'
+# filteredRaf without LTE confirms it:
+#   modemRaf    = GPRS|UMTS|LTE|GSM|LTE_CA|NR
+#   filteredRaf = GPRS|UMTS|GSM
+```
+
+Fix: Settings → SIMs → *your SIM* → **Preferred network type → LTE**, or:
+
+```powershell
+adb shell settings put global preferred_network_mode 9
+adb reboot
+```
+
+Expect `filteredRaf = GPRS|UMTS|LTE|GSM|LTE_CA` and registration within a minute.
+
+> `gsm.sim.state` can stay `LOADED,NOT_READY` even when the phone is registered on LTE.
+> Check `RegStateResult` in `logcat -b radio` instead.
+
 ## `fastboot flash system` says not enough space
 
 In fastbootd:

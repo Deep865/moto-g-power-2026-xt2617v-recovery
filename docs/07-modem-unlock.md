@@ -1,13 +1,14 @@
 # Modem SIM/network unlock (`md1img_a`)
 
-Status: **patched `md1img_a` flashed 2026-11-21; SIM/network verification pending**.
+Status: **verified 2026-11-23** — the patched `md1img_a` (flashed 2026-11-21) removes the
+network lock: a non-Tracfone SIM loads as `LOADED`, and LTE data was confirmed on AT&T.
 
 This unit:
 
 ```
 Model        : XT2617V / bootloader product `vegas` / `vegas26`
 Carrier      : ro.carrier = tracfone
-SIM          : gsm.sim.state = ABSENT,NOT_READY (no SIM inserted)
+SIM          : non-Tracfone SIM loads as LOADED (verified 2026-11-23); none inserted at rest
 Build        : W1WEOS36.48-22-3-3-4-3
 Modem        : md1img_a (stock backup, 209,715,200 bytes)
 ```
@@ -87,13 +88,68 @@ gsm.sim.state        = ABSENT,NOT_READY   (no SIM)
 vendor.gsm.sim.slot.lock.device.lock.remain.count = 5
 ```
 
-The network lock cannot be verified until a non-Tracfone SIM is inserted. The stock
-trimmed image remains the revert.
+The network lock was verified on 2026-11-23 with a non-Tracfone SIM
+([details](#verification-2026-11-23)). The stock trimmed image remains the revert.
 
-## Verify the unlock (needs a non-Tracfone SIM)
+## Verification (2026-11-23)
 
-There is no way to verify the network unlock without a SIM. The offline build/audit is
-done, but the `NETWORK_LOCKED → LOADED` transition requires a non-Tracfone SIM.
+A physical **data-only travel SIM** was used: Edge Mobile LLC, MCC/MNC `310840`, on a
+2 GB / 30-day profile. It is not Tracfone/Verizon, which is all the lock check requires —
+neither voice service nor a phone number is needed.
+
+**The lock is gone.** No unlock prompt, no `NETWORK_LOCKED`, counter untouched:
+
+```text
+gsm.sim.state                                     = LOADED,NOT_READY
+gsm.sim.operator.alpha / numeric                  = Edge Mobile LLC / 310840
+vendor.gsm.sim.slot.lock.device.lock.remain.count = 5
+gsm.version.baseband  = MT6835O_NR17.RC.MP.V18.6.6.P107.02.309R
+```
+
+**Data works**, on AT&T LTE as a roaming partner:
+
+```text
+gsm.operator.alpha   = AT&T
+gsm.operator.numeric = 310410
+gsm.network.type     = LTE
+RegStateResult       = REG_ROAMING, rat: LTE, reasonForDenial: NONE
+interface            = ccmni2, 10.229.103.188
+ping 1.1.1.1         = 3/3 received, 68-94 ms
+ping one.one.one.one = 2/2 received
+```
+
+`REG_ROAMING` is expected for a travel profile: it attaches to a US partner network
+rather than its own.
+
+> **`gsm.sim.state` is unreliable on this build.** It stayed at `LOADED,NOT_READY` while
+> the phone was fully registered on LTE. Trust `RegStateResult` in `logcat -b radio` and
+> `dumpsys telephony.registry`, not that property.
+
+## No service after the GSI? The 3G default
+
+The first insert read `LOADED`, but the radio reported `OUT_OF_SERVICE`, no serving cell,
+invalid signal strength and `NOT_REG_MT_SEARCHING_OP` — it looks exactly like broken RF.
+It is the GSI's default network mode:
+
+```text
+Phone-0: setAllowedNetworkTypes: modemRaf   = GPRS|UMTS|LTE|GSM|LTE_CA|NR
+                                filteredRaf = GPRS|UMTS|GSM        <- LTE/NR dropped
+RmmNwRatSwHdlr: rat = 2                                            <- 3G only
+settings get global preferred_network_mode                        -> 0 (WCDMA_PREF)
+```
+
+US 3G is shut down, so a 3G-only radio finds nothing at all. Fix:
+
+- Settings → SIMs → *your SIM* → **Preferred network type → LTE**, or
+- `adb shell settings put global preferred_network_mode 9`, then reboot.
+
+Afterwards expect `filteredRaf = GPRS|UMTS|LTE|GSM|LTE_CA` and registration within a
+minute. Full write-up: [`04-troubleshooting.md`](04-troubleshooting.md).
+
+## How to verify on another unit
+
+The offline build/audit is done, but the `NETWORK_LOCKED → LOADED` transition still needs
+a non-Tracfone SIM.
 
 Suggested cheap physical SIMs:
 
@@ -102,7 +158,8 @@ Suggested cheap physical SIMs:
 - Mint Mobile / T-Mobile prepaid
 - AT&T prepaid
 
-A physical SIM is fine; no eSIM needed. Expect roughly $10 or a cheap prepaid plan.
+A physical SIM is fine; no eSIM needed. A data-only travel SIM is enough for the lock and
+data test — a voice-capable US MVNO is only needed to test calls, SMS and VoLTE.
 
 Insert the SIM and check:
 
